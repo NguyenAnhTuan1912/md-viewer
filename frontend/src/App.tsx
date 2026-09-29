@@ -1,10 +1,11 @@
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { Sidebar } from '@/components/layout/sidebar';
 import { Header } from '@/components/layout/header';
 import { TabBar } from '@/components/layout/tab-bar';
 import { Toaster } from '@/components/ui/toast';
 import { useThemeStore } from '@/stores/theme.store';
 import { useOpenTabsStore } from '@/stores/open-tabs.store';
+import { useSources } from '@/features/sources/use-sources';
 import { useFileContent } from '@/features/viewer/use-file-content';
 import { MarkdownViewer } from '@/features/viewer/markdown-viewer';
 import { HtmlViewer } from '@/features/viewer/html-viewer';
@@ -13,8 +14,30 @@ function App() {
   const isDarkMode = useThemeStore((state) => state.isDarkMode);
   const setDarkMode = useThemeStore((state) => state.setDarkMode);
   const activeTabPath = useOpenTabsStore((state) => state.activeTabPath);
+  const { data: sources } = useSources();
 
   const { data: fileContent, isLoading, isError } = useFileContent(activeTabPath);
+
+  // Find the registered source whose root contains the active file, so
+  // root-relative asset references (e.g. `/images/logo.png`) can be
+  // resolved against that source's folder instead of the real filesystem
+  // root. Pick the longest matching prefix in case sources are nested.
+  const activeSourceRoot = useMemo(() => {
+    if (!activeTabPath || !sources) {
+      return undefined;
+    }
+    const matches = sources.filter(
+      (source) =>
+        activeTabPath === source.path ||
+        activeTabPath.startsWith(`${source.path}/`),
+    );
+    if (matches.length === 0) {
+      return undefined;
+    }
+    return matches.reduce((longest, current) =>
+      current.path.length > longest.path.length ? current : longest,
+    ).path;
+  }, [activeTabPath, sources]);
 
   useEffect(() => {
     document.documentElement.classList.toggle('dark', isDarkMode);
@@ -47,11 +70,19 @@ function App() {
           )}
 
           {activeTabPath && fileContent?.type === 'markdown' && (
-            <MarkdownViewer content={fileContent.content} />
+            <MarkdownViewer
+              content={fileContent.content}
+              filePath={activeTabPath}
+              sourceRoot={activeSourceRoot}
+            />
           )}
 
           {activeTabPath && fileContent?.type === 'html' && (
-            <HtmlViewer content={fileContent.content} />
+            <HtmlViewer
+              content={fileContent.content}
+              filePath={activeTabPath}
+              sourceRoot={activeSourceRoot}
+            />
           )}
         </main>
       </div>

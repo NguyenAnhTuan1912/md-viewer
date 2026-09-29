@@ -15,6 +15,7 @@ describe('GetFileContentUseCase', () => {
     mockFsPort = {
       scanDirectory: jest.fn(),
       readFile: jest.fn(),
+      readFileBuffer: jest.fn(),
     };
     mockGuard = {
       assertWithinRegisteredSource: jest.fn().mockResolvedValue(undefined),

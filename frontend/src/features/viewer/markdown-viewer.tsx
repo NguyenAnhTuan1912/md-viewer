@@ -3,6 +3,7 @@ import ReactMarkdown, { type Components } from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeHighlight from 'rehype-highlight';
 import { cn } from '@/utils/cn';
+import { resolveAssetUrl } from '@/lib/resolve-asset-url';
 import { MermaidDiagram } from './mermaid-diagram';
 import { useHighlightTheme } from './use-highlight-theme';
 
@@ -27,7 +28,11 @@ function extractText(children: React.ReactNode): string {
   return '';
 }
 
-const components: Components = {
+function createComponents(
+  currentFilePath: string,
+  sourceRoot?: string,
+): Components {
+  return {
   h1: ({ className, ...rest }) => (
     <h1
       className={cn(
@@ -165,9 +170,10 @@ const components: Components = {
     ) : (
       <input type={type} className={className} {...rest} />
     ),
-  img: ({ className, ...rest }) => (
+  img: ({ className, src, ...rest }) => (
     <img
       className={cn('mb-4 max-w-full rounded-lg shadow-regular-md ring-1 ring-stroke-soft-200', className)}
+      src={resolveAssetUrl(typeof src === 'string' ? src : undefined, currentFilePath, sourceRoot)}
       {...rest}
     />
   ),
@@ -223,14 +229,22 @@ const components: Components = {
       </div>
     );
   },
-};
+  };
+}
 
 interface MarkdownViewerProps {
   content: string;
+  filePath: string;
+  sourceRoot?: string;
 }
 
-export function MarkdownViewer({ content }: MarkdownViewerProps) {
+export function MarkdownViewer({ content, filePath, sourceRoot }: MarkdownViewerProps) {
   useHighlightTheme();
+
+  const components = React.useMemo(
+    () => createComponents(filePath, sourceRoot),
+    [filePath, sourceRoot],
+  );
 
   return (
     <div className="mx-auto max-w-3xl">

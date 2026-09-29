@@ -16,6 +16,10 @@ export class NodeFileSystemAdapter implements FileSystemPort {
     return fs.readFile(filePath, 'utf-8');
   }
 
+  async readFileBuffer(filePath: string): Promise<Buffer> {
+    return fs.readFile(filePath);
+  }
+
   private async scanRecursive(dirPath: string): Promise<FileNode[]> {
     let entries: import('fs').Dirent[];
     try {

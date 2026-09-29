@@ -19,6 +19,7 @@ describe('GetSourceTreeUseCase', () => {
     mockFsPort = {
       scanDirectory: jest.fn(),
       readFile: jest.fn(),
+      readFileBuffer: jest.fn(),
     };
     useCase = new GetSourceTreeUseCase(mockConfigPort, mockFsPort);
   });

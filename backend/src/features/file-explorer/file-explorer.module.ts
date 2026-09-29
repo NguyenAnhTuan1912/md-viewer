@@ -8,6 +8,7 @@ import { AddSourceUseCase } from './application/use-cases/add-source.use-case';
 import { ListSourcesUseCase } from './application/use-cases/list-sources.use-case';
 import { GetSourceTreeUseCase } from './application/use-cases/get-source-tree.use-case';
 import { GetFileContentUseCase } from './application/use-cases/get-file-content.use-case';
+import { GetFileAssetUseCase } from './application/use-cases/get-file-asset.use-case';
 import { SyncNodeUseCase } from './application/use-cases/sync-node.use-case';
 import { SourcesController } from './presentation/http/sources.controller';
 import { FilesController } from './presentation/http/files.controller';
@@ -29,6 +30,7 @@ import { NodesController } from './presentation/http/nodes.controller';
     ListSourcesUseCase,
     GetSourceTreeUseCase,
     GetFileContentUseCase,
+    GetFileAssetUseCase,
     SyncNodeUseCase,
   ],
 })

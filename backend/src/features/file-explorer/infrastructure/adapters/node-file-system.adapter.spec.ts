@@ -92,6 +92,15 @@ describe('NodeFileSystemAdapter', () => {
     expect(content).toBe('# Title\n\nBody text');
   });
 
+  it('readFileBuffer returns raw binary content', async () => {
+    const filePath = path.join(tmpDir, 'image.png');
+    const bytes = Buffer.from([0x89, 0x50, 0x4e, 0x47]);
+    await fs.writeFile(filePath, bytes);
+
+    const buffer = await adapter.readFileBuffer(filePath);
+    expect(Buffer.compare(buffer, bytes)).toBe(0);
+  });
+
   it('returns empty array when scanning a non-existent directory', async () => {
     const result = await adapter.scanDirectory(
       path.join(tmpDir, 'does-not-exist'),
