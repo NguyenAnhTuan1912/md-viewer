@@ -4,9 +4,9 @@ import * as React from 'react';
 import { Slot } from '@radix-ui/react-slot';
 import { RiCloseFill } from '@remixicon/react';
 
-import { type PolymorphicComponentProps } from '@/utils/polymorphic';
-import { recursiveCloneChildren } from '@/utils/recursive-clone-children';
-import { tv, type VariantProps } from '@/utils/tv';
+import { type TPolymorphicComponentProps } from '@/lib/polymorphic';
+import { recursiveCloneChildren } from '@/lib/recursive-clone-children';
+import { tv, type VariantProps } from '@/lib/tv';
 
 const TAG_ROOT_NAME = 'TagRoot';
 const TAG_ICON_NAME = 'TagIcon';
@@ -74,14 +74,14 @@ export const tagVariants = tv({
   },
 });
 
-type TagSharedProps = VariantProps<typeof tagVariants>;
+type TTagSharedProps = VariantProps<typeof tagVariants>;
 
-type TagProps = VariantProps<typeof tagVariants> &
+type TTagProps = VariantProps<typeof tagVariants> &
   React.HTMLAttributes<HTMLDivElement> & {
     asChild?: boolean;
   };
 
-const TagRoot = React.forwardRef<HTMLDivElement, TagProps>(
+const TagRoot = React.forwardRef<HTMLDivElement, TTagProps>(
   (
     { asChild, children, variant, disabled, className, ...rest },
     forwardedRef,
@@ -90,7 +90,7 @@ const TagRoot = React.forwardRef<HTMLDivElement, TagProps>(
     const Component = asChild ? Slot : 'div';
     const { root } = tagVariants({ variant, disabled });
 
-    const sharedProps: TagSharedProps = {
+    const sharedProps: TTagSharedProps = {
       variant,
       disabled,
     };
@@ -123,7 +123,7 @@ function TagIcon<T extends React.ElementType>({
   disabled,
   as,
   ...rest
-}: PolymorphicComponentProps<T, TagSharedProps>) {
+}: TPolymorphicComponentProps<T, TTagSharedProps>) {
   const Component = as || 'div';
   const { icon } = tagVariants({ variant, disabled });
 
@@ -131,14 +131,14 @@ function TagIcon<T extends React.ElementType>({
 }
 TagIcon.displayName = TAG_ICON_NAME;
 
-type TagDismissButtonProps = TagSharedProps &
+type TTagDismissButtonProps = TTagSharedProps &
   React.ButtonHTMLAttributes<HTMLButtonElement> & {
     asChild?: boolean;
   };
 
 const TagDismissButton = React.forwardRef<
   HTMLButtonElement,
-  TagDismissButtonProps
+  TTagDismissButtonProps
 >(
   (
     { asChild, children, className, variant, disabled, ...rest },
@@ -172,7 +172,7 @@ function TagDismissIcon<T extends React.ElementType>({
   disabled,
   as,
   ...rest
-}: PolymorphicComponentProps<T, TagSharedProps>) {
+}: TPolymorphicComponentProps<T, TTagSharedProps>) {
   const Component = as || 'div';
   const { dismissIcon } = tagVariants({ variant, disabled });
 

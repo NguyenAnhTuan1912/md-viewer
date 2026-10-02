@@ -10,7 +10,7 @@ import {
 import * as Alert from '@/components/ui/alert';
 import { toast } from '@/components/ui/toast';
 
-type AlertToastProps = {
+type TAlertToastProps = {
   t: string | number;
   status?: React.ComponentPropsWithoutRef<typeof Alert.Root>['status'];
   variant?: React.ComponentPropsWithoutRef<typeof Alert.Root>['variant'];
@@ -21,7 +21,7 @@ type AlertToastProps = {
 
 const AlertToast = React.forwardRef<
   React.ComponentRef<typeof Alert.Root>,
-  AlertToastProps
+  TAlertToastProps
 >(
   (
     {

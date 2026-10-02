@@ -3,9 +3,9 @@
 import * as React from 'react';
 import { RiCloseLine } from '@remixicon/react';
 
-import type { PolymorphicComponentProps } from '@/utils/polymorphic';
-import { recursiveCloneChildren } from '@/utils/recursive-clone-children';
-import { tv, type ClassValue, type VariantProps } from '@/utils/tv';
+import type { TPolymorphicComponentProps } from '@/lib/polymorphic';
+import { recursiveCloneChildren } from '@/lib/recursive-clone-children';
+import { tv, type ClassValue, type VariantProps } from '@/lib/tv';
 
 const ALERT_ROOT_NAME = 'AlertRoot';
 const ALERT_ICON_NAME = 'AlertIcon';
@@ -228,14 +228,14 @@ export const alertVariants = tv({
   },
 });
 
-type AlertSharedProps = VariantProps<typeof alertVariants>;
+type TAlertSharedProps = VariantProps<typeof alertVariants>;
 
-export type AlertProps = VariantProps<typeof alertVariants> &
+export type TAlertProps = VariantProps<typeof alertVariants> &
   React.HTMLAttributes<HTMLDivElement> & {
     wrapperClassName?: ClassValue;
   };
 
-const AlertRoot = React.forwardRef<HTMLDivElement, AlertProps>(
+const AlertRoot = React.forwardRef<HTMLDivElement, TAlertProps>(
   (
     { children, className, wrapperClassName, size, variant, status, ...rest },
     forwardedRef,
@@ -243,7 +243,7 @@ const AlertRoot = React.forwardRef<HTMLDivElement, AlertProps>(
     const uniqueId = React.useId();
     const { root, wrapper } = alertVariants({ size, variant, status });
 
-    const sharedProps: AlertSharedProps = {
+    const sharedProps: TAlertSharedProps = {
       size,
       variant,
       status,
@@ -273,7 +273,7 @@ function AlertIcon<T extends React.ElementType>({
   status,
   className,
   as,
-}: PolymorphicComponentProps<T, AlertSharedProps>) {
+}: TPolymorphicComponentProps<T, TAlertSharedProps>) {
   const Component = as || 'div';
   const { icon } = alertVariants({ size, variant, status });
 
@@ -287,7 +287,7 @@ function AlertCloseIcon<T extends React.ElementType>({
   status,
   className,
   as,
-}: PolymorphicComponentProps<T, AlertSharedProps>) {
+}: TPolymorphicComponentProps<T, TAlertSharedProps>) {
   const Component = as || RiCloseLine;
   const { closeIcon } = alertVariants({ size, variant, status });
 

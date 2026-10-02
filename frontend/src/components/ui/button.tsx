@@ -3,9 +3,9 @@
 import * as React from 'react';
 import { Slot } from '@radix-ui/react-slot';
 
-import type { PolymorphicComponentProps } from '@/utils/polymorphic';
-import { recursiveCloneChildren } from '@/utils/recursive-clone-children';
-import { tv, type VariantProps } from '@/utils/tv';
+import type { TPolymorphicComponentProps } from '@/lib/polymorphic';
+import { recursiveCloneChildren } from '@/lib/recursive-clone-children';
+import { tv, type VariantProps } from '@/lib/tv';
 
 const BUTTON_ROOT_NAME = 'ButtonRoot';
 const BUTTON_ICON_NAME = 'ButtonIcon';
@@ -248,14 +248,14 @@ export const buttonVariants = tv({
   },
 });
 
-type ButtonSharedProps = VariantProps<typeof buttonVariants>;
+type TButtonSharedProps = VariantProps<typeof buttonVariants>;
 
-type ButtonRootProps = VariantProps<typeof buttonVariants> &
+type TButtonRootProps = VariantProps<typeof buttonVariants> &
   React.ButtonHTMLAttributes<HTMLButtonElement> & {
     asChild?: boolean;
   };
 
-const ButtonRoot = React.forwardRef<HTMLButtonElement, ButtonRootProps>(
+const ButtonRoot = React.forwardRef<HTMLButtonElement, TButtonRootProps>(
   (
     { children, variant, mode, size, asChild, className, ...rest },
     forwardedRef,
@@ -264,7 +264,7 @@ const ButtonRoot = React.forwardRef<HTMLButtonElement, ButtonRootProps>(
     const Component = asChild ? Slot : 'button';
     const { root } = buttonVariants({ variant, mode, size });
 
-    const sharedProps: ButtonSharedProps = {
+    const sharedProps: TButtonSharedProps = {
       variant,
       mode,
       size,
@@ -298,7 +298,7 @@ function ButtonIcon<T extends React.ElementType>({
   as,
   className,
   ...rest
-}: PolymorphicComponentProps<T, ButtonSharedProps>) {
+}: TPolymorphicComponentProps<T, TButtonSharedProps>) {
   const Component = as || 'div';
   const { icon } = buttonVariants({ mode, variant, size });
 

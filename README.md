@@ -14,9 +14,11 @@ md-viewer/
 │       └── presentation/    HTTP controllers, DTOs
 ├── frontend/         Vite + React + TailwindCSS v4 + AlignUI
 │   └── src/
-│       ├── components/      layout + AlignUI base components
-│       ├── features/        sources, sidebar-tree, viewer
-│       └── stores/          Zustand stores
+│       ├── app/             providers + application layouts
+│       ├── components/ui/   shared AlignUI components
+│       ├── features/        sources, sidebar-tree, viewer, theme (API, queries, state)
+│       ├── lib/             shared API transport + helpers
+│       └── pages/           viewer page
 ├── ecosystem.config.js      pm2 process config
 └── package.json             root coordinating scripts
 ```

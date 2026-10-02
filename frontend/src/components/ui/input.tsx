@@ -3,9 +3,9 @@
 import * as React from 'react';
 import { Slot } from '@radix-ui/react-slot';
 
-import type { PolymorphicComponentProps } from '@/utils/polymorphic';
-import { recursiveCloneChildren } from '@/utils/recursive-clone-children';
-import { tv, type VariantProps } from '@/utils/tv';
+import type { TPolymorphicComponentProps } from '@/lib/polymorphic';
+import { recursiveCloneChildren } from '@/lib/recursive-clone-children';
+import { tv, type VariantProps } from '@/lib/tv';
 
 const INPUT_ROOT_NAME = 'InputRoot';
 const INPUT_WRAPPER_NAME = 'InputWrapper';
@@ -148,7 +148,7 @@ export const inputVariants = tv({
   },
 });
 
-type InputSharedProps = VariantProps<typeof inputVariants>;
+type TInputSharedProps = VariantProps<typeof inputVariants>;
 
 function InputRoot({
   className,
@@ -158,7 +158,7 @@ function InputRoot({
   asChild,
   ...rest
 }: React.HTMLAttributes<HTMLDivElement> &
-  InputSharedProps & {
+  TInputSharedProps & {
     asChild?: boolean;
   }) {
   const uniqueId = React.useId();
@@ -169,7 +169,7 @@ function InputRoot({
     hasError,
   });
 
-  const sharedProps: InputSharedProps = {
+  const sharedProps: TInputSharedProps = {
     size,
     hasError,
   };
@@ -204,7 +204,7 @@ function InputWrapper({
   asChild,
   ...rest
 }: React.HTMLAttributes<HTMLLabelElement> &
-  InputSharedProps & {
+  TInputSharedProps & {
     asChild?: boolean;
   }) {
   const Component = asChild ? Slot : 'label';
@@ -225,7 +225,7 @@ InputWrapper.displayName = INPUT_WRAPPER_NAME;
 const Input = React.forwardRef<
   HTMLInputElement,
   React.InputHTMLAttributes<HTMLInputElement> &
-    InputSharedProps & {
+    TInputSharedProps & {
       asChild?: boolean;
     }
 >(
@@ -258,7 +258,7 @@ function InputIcon<T extends React.ElementType = 'div'>({
   as,
   className,
   ...rest
-}: PolymorphicComponentProps<T, InputSharedProps>) {
+}: TPolymorphicComponentProps<T, TInputSharedProps>) {
   const Component = as || 'div';
   const { icon } = inputVariants({ size, hasError });
 
@@ -272,7 +272,7 @@ function InputAffix({
   size,
   hasError,
   ...rest
-}: React.HTMLAttributes<HTMLDivElement> & InputSharedProps) {
+}: React.HTMLAttributes<HTMLDivElement> & TInputSharedProps) {
   const { affix } = inputVariants({
     size,
     hasError,
@@ -292,7 +292,7 @@ function InputInlineAffix({
   size,
   hasError,
   ...rest
-}: React.HTMLAttributes<HTMLSpanElement> & InputSharedProps) {
+}: React.HTMLAttributes<HTMLSpanElement> & TInputSharedProps) {
   const { inlineAffix } = inputVariants({
     size,
     hasError,

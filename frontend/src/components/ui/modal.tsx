@@ -5,7 +5,7 @@ import * as DialogPrimitive from '@radix-ui/react-dialog';
 import { RiCloseLine, type RemixiconComponentType } from '@remixicon/react';
 
 import * as CompactButton from '@/components/ui/compact-button';
-import { cn } from '@/utils/cn';
+import { cn } from '@/lib/cn';
 
 const ModalRoot = DialogPrimitive.Root;
 const ModalTrigger = DialogPrimitive.Trigger;
