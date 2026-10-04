@@ -6,12 +6,11 @@ Web app để xem tập trung các file Markdown và HTML nằm rải rác nhi�
 
 ```
 md-viewer/
-├── backend/          NestJS (Hexagonal Architecture)
-│   └── src/features/file-explorer/
-│       ├── domain/          entities, ports, domain services
-│       ├── application/     use cases
-│       ├── infrastructure/  adapters (filesystem, JSON config)
-│       └── presentation/    HTTP controllers, DTOs
+├── backend/          NestJS modular monolith
+│   ├── apps/api/            bootstrap, composition, health, HTTP tests
+│   └── libs/
+│       ├── features/file-explorer/  domain, application, repositories, services, HTTP, DI
+│       └── platform/config/        typed runtime configuration
 ├── frontend/         Vite + React + TailwindCSS v4 + AlignUI
 │   └── src/
 │       ├── app/             providers + application layouts
@@ -28,6 +27,7 @@ md-viewer/
 - `GET /sources` / `POST /sources` — quản lý danh sách folder gốc (source)
 - `GET /sources/:id/tree` — lấy cây file/folder (.md/.html) của 1 source
 - `GET /files/content?path=...` — đọc nội dung file (`{content, type}`)
+- `GET /files/asset?path=...` — assets cho preview (ảnh, CSS, fonts)
 - `POST /nodes/sync` — re-scan lại 1 node (root hoặc subfolder)
 
 ## Development

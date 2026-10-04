@@ -16,6 +16,33 @@ module.exports = {
     jest: true,
   },
   ignorePatterns: ['.eslintrc.js'],
+  overrides: [
+    {
+      files: ['libs/features/*/src/{domain,application}/**/*.ts'],
+      excludedFiles: ['**/*.spec.ts'],
+      rules: {
+        'no-restricted-imports': ['error', {
+          patterns: [
+            '@nestjs/*', '**/infrastructure/**', '**/presentation/**', '**/modules/**',
+            'fs', 'fs/*', 'node:fs', 'node:fs/*',
+          ],
+        }],
+      },
+    },
+    {
+      files: ['libs/features/*/src/domain/**/*.ts'],
+      excludedFiles: ['**/*.spec.ts'],
+      rules: {
+        'no-restricted-imports': ['error', {
+          patterns: [
+            '@nestjs/*', '**/application/**', '**/infrastructure/**',
+            '**/presentation/**', '**/modules/**', '**/tokens/**',
+            'fs', 'fs/*', 'node:fs', 'node:fs/*',
+          ],
+        }],
+      },
+    },
+  ],
   rules: {
     '@typescript-eslint/interface-name-prefix': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',

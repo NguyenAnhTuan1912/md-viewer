@@ -3,7 +3,7 @@ module.exports = {
     {
       name: 'md-viewer',
       cwd: './backend',
-      script: 'dist/main.js',
+      script: 'dist/apps/api/src/main.js',
       env: {
         NODE_ENV: 'production',
         PORT: 19121,
