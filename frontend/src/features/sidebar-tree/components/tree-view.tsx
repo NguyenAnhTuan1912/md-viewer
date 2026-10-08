@@ -1,10 +1,10 @@
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo } from "react";
 import {
   hotkeysCoreFeature,
   selectionFeature,
   syncDataLoaderFeature,
-} from '@headless-tree/core';
-import { useTree } from '@headless-tree/react';
+} from "@headless-tree/core";
+import { useTree } from "@headless-tree/react";
 import {
   RiArrowRightSLine,
   RiFolder2Fill,
@@ -13,29 +13,29 @@ import {
   RiHtml5Line,
   RiLoader4Line,
   RiRefreshLine,
-} from '@remixicon/react';
-import * as Button from '@/components/ui/button';
-import * as Tooltip from '@/components/ui/tooltip';
-import { cn } from '@/lib/cn';
+} from "@remixicon/react";
+import * as Button from "@/components/ui/button";
+import * as Tooltip from "@/components/ui/tooltip";
+import { cn } from "@/lib/cn";
 import {
   useOpenTabsStore,
   openTabsStoreActions,
-} from '@/features/viewer/store/open-tabs-store';
+} from "@/features/viewer/store/open-tabs-store";
 import {
   useExpandedItemsStore,
   expandedItemsStoreActions,
-} from '@/features/sidebar-tree/store/expanded-items-store';
-import { useSourceTrees } from '@/features/sidebar-tree/queries/use-source-tree';
-import { useSyncNode } from '@/features/sidebar-tree/queries/use-sync-node';
-import type { TFileNode, TSource, TSourceTree } from '@/lib/api/types';
+} from "@/features/sidebar-tree/store/expanded-items-store";
+import { useSourceTrees } from "@/features/sidebar-tree/queries/use-source-tree";
+import { useSyncNode } from "@/features/sidebar-tree/queries/use-sync-node";
+import type { TFileNode, TSource, TSourceTree } from "@/lib/api/types";
 
-const ROOT_ID = '__root__';
+const ROOT_ID = "__root__";
 const INDENT_SIZE = 18;
 
 type TTreeItemData = {
   name: string;
   path: string;
-  type: 'root' | 'file' | 'folder';
+  type: "root" | "file" | "folder";
   sourceId?: string;
   children: string[];
 };
@@ -52,9 +52,9 @@ function buildTreeModel(
   const parents = new Map<string, string>();
 
   map.set(ROOT_ID, {
-    name: 'root',
+    name: "root",
     path: ROOT_ID,
-    type: 'root',
+    type: "root",
     children: sources.map((source) => source.id),
   });
 
@@ -63,7 +63,7 @@ function buildTreeModel(
     map.set(source.id, {
       name: source.name,
       path: source.path,
-      type: 'root',
+      type: "root",
       sourceId: source.id,
       children: (result?.tree ?? []).map((node) => node.path),
     });
@@ -119,7 +119,7 @@ export function SidebarTreeView({ sources }: TSidebarTreeViewProps) {
   const tree = useTree<TTreeItemData>({
     rootItemId: ROOT_ID,
     getItemName: (item) => item.getItemData().name,
-    isItemFolder: (item) => item.getItemData().type !== 'file',
+    isItemFolder: (item) => item.getItemData().type !== "file",
     state: { expandedItems },
     setExpandedItems: expandedItemsStoreActions.setExpandedItems,
     dataLoader: {
@@ -127,7 +127,7 @@ export function SidebarTreeView({ sources }: TSidebarTreeViewProps) {
         itemMap.get(itemId) ?? {
           name: itemId,
           path: itemId,
-          type: 'file',
+          type: "file",
           children: [],
         },
       getChildren: (itemId) => itemMap.get(itemId)?.children ?? [],
@@ -142,25 +142,18 @@ export function SidebarTreeView({ sources }: TSidebarTreeViewProps) {
     if (!activeTabPath || !parentMap.has(activeTabPath)) {
       return;
     }
+
     const ancestors: string[] = [];
     let current: string | undefined = parentMap.get(activeTabPath);
     while (current && current !== ROOT_ID) {
       ancestors.push(current);
       current = parentMap.get(current);
     }
+
     if (ancestors.length > 0) {
       expandedItemsStoreActions.expandPaths(ancestors);
     }
   }, [activeTabPath, parentMap]);
-
-  // Seed the persisted expanded set with all source roots the first time
-  // sources are loaded (so newly added sources start expanded), without
-  // clobbering folders the user has already expanded/collapsed.
-  useEffect(() => {
-    if (sourceIds.length > 0) {
-      expandedItemsStoreActions.expandPaths(sourceIds);
-    }
-  }, [sourceIds]);
 
   useEffect(() => {
     // The synchronous loader needs its visible rows rebuilt when query data changes.
@@ -197,10 +190,10 @@ export function SidebarTreeView({ sources }: TSidebarTreeViewProps) {
 
         const data = item.getItemData();
         const level = item.getItemMeta().level - 1;
-        const isRoot = data.type === 'root';
+        const isRoot = data.type === "root";
         const isFolder = item.isFolder();
-        const isFile = data.type === 'file';
-        const isMarkdown = data.name.toLowerCase().endsWith('.md');
+        const isFile = data.type === "file";
+        const isMarkdown = data.name.toLowerCase().endsWith(".md");
         const isExpanded = item.isExpanded();
         const isActive = isFile && activeTabPath === data.path;
         const isSyncing =
@@ -212,13 +205,13 @@ export function SidebarTreeView({ sources }: TSidebarTreeViewProps) {
             {...item.getProps()}
             style={{ paddingLeft: `${level * INDENT_SIZE + 8}px` }}
             className={cn(
-              'group/tree-item relative flex items-center gap-1.5 rounded-md py-1.5 pr-2 text-paragraph-sm outline-none transition-colors duration-100',
-              isRoot && 'mt-2 first:mt-0',
+              "group/tree-item relative flex items-center gap-1.5 rounded-md py-1.5 pr-2 text-paragraph-sm outline-none transition-colors duration-100",
+              isRoot && "mt-2 first:mt-0",
               isActive
-                ? 'bg-primary-alpha-10 font-medium text-primary-base'
+                ? "bg-primary-alpha-10 font-medium text-primary-base"
                 : isRoot
-                  ? 'text-text-strong-950 hover:bg-bg-weak-50'
-                  : 'text-text-sub-600 hover:bg-bg-weak-50',
+                  ? "text-text-strong-950 hover:bg-bg-weak-50"
+                  : "text-text-sub-600 hover:bg-bg-weak-50",
             )}
             onClick={(event) => {
               item.getProps().onClick?.(event);
@@ -226,7 +219,7 @@ export function SidebarTreeView({ sources }: TSidebarTreeViewProps) {
                 openTabsStoreActions.openTab({
                   path: data.path,
                   name: data.name,
-                  type: isMarkdown ? 'markdown' : 'html',
+                  type: isMarkdown ? "markdown" : "html",
                 });
               }
             }}
@@ -246,8 +239,8 @@ export function SidebarTreeView({ sources }: TSidebarTreeViewProps) {
               <RiArrowRightSLine
                 aria-hidden="true"
                 className={cn(
-                  'size-3.5 shrink-0 text-text-soft-400 transition-transform duration-150 ease-out',
-                  isExpanded ? 'rotate-90' : 'rotate-0',
+                  "size-3.5 shrink-0 text-text-soft-400 transition-transform duration-150 ease-out",
+                  isExpanded ? "rotate-90" : "rotate-0",
                 )}
               />
             ) : (
@@ -258,15 +251,15 @@ export function SidebarTreeView({ sources }: TSidebarTreeViewProps) {
               isExpanded ? (
                 <RiFolderOpenFill
                   className={cn(
-                    'size-4 shrink-0',
-                    isRoot ? 'text-primary-base' : 'text-yellow-500',
+                    "size-4 shrink-0",
+                    isRoot ? "text-primary-base" : "text-yellow-500",
                   )}
                 />
               ) : (
                 <RiFolder2Fill
                   className={cn(
-                    'size-4 shrink-0',
-                    isRoot ? 'text-primary-base' : 'text-yellow-500',
+                    "size-4 shrink-0",
+                    isRoot ? "text-primary-base" : "text-yellow-500",
                   )}
                 />
               )
@@ -276,7 +269,7 @@ export function SidebarTreeView({ sources }: TSidebarTreeViewProps) {
               <RiHtml5Line className="size-4 shrink-0 text-warning-base" />
             )}
 
-            <span className={cn('flex-1 truncate', isRoot && 'text-label-sm')}>
+            <span className={cn("flex-1 truncate", isRoot && "text-label-sm")}>
               {data.name}
             </span>
 
@@ -303,7 +296,7 @@ export function SidebarTreeView({ sources }: TSidebarTreeViewProps) {
                     >
                       <Button.Icon
                         as={isSyncing ? RiLoader4Line : RiRefreshLine}
-                        className={isSyncing ? 'animate-spin' : undefined}
+                        className={isSyncing ? "animate-spin" : undefined}
                       />
                     </Button.Root>
                   </Tooltip.Trigger>
