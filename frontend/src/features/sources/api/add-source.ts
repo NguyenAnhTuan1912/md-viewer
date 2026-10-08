@@ -1,11 +1,11 @@
 import { apiClient } from '@/lib/api/client';
-import type { ISource } from '@/lib/api/types';
+import type { TSource } from '@/lib/api/types';
 
-export interface IAddSourceInput {
+export type TAddSourceInput = {
   path: string;
   name?: string;
-}
+};
 
-export function addSource(input: IAddSourceInput) {
-  return apiClient.post<ISource>('/sources', input);
+export function addSource(input: TAddSourceInput) {
+  return apiClient.post<TSource>('/sources', input);
 }

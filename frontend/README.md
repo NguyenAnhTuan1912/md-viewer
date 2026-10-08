@@ -51,10 +51,25 @@ hooks and call actions directly. Existing `md-viewer-*` storage keys and state
 shapes are preserved so saved tabs, expansion, sidebar width, and theme survive
 the refactor.
 
-Local type aliases use `T` prefixes and interfaces use `I` prefixes; imported
-library types keep their original names. Imports use the `@/` source alias.
+Use `T`-prefixed type aliases for data models, API inputs/responses, component
+props, and store state. Reserve `I`-prefixed interfaces for method-only contracts
+implemented by classes. Imported library types keep their original names.
+Imports use the `@/` source alias.
 
 The project retains npm, Oxlint, the fetch-based transport, and AlignUI. The
 single-screen application composes `ViewerPage` directly; add a router when
 additional URL-based pages are needed. Boilerplate demo features and unused
 integrations are not included.
+
+## Component declaration order
+
+Group declarations by responsibility: local/store state, refs and IDs, queries
+and mutations, derived values, effects, event handlers, then rendering. Keep
+prerequisite values before the hooks that consume them (for example, source IDs
+before a tree query). Use short section comments in components with several
+responsibilities; simple components do not need every section.
+
+Call exported store actions directly so they are distinct from reactive state
+selectors. Keep substantial data transformations in pure helpers outside the
+component, and memoize their results inside the component when needed. Hooks
+must remain unconditional and above early returns.

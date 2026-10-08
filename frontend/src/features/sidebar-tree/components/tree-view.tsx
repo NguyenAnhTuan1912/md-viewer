@@ -6,6 +6,7 @@ import {
 } from '@headless-tree/core';
 import { useTree } from '@headless-tree/react';
 import {
+  RiArrowRightSLine,
   RiFolder2Fill,
   RiFolderOpenFill,
   RiFileTextLine,
@@ -26,98 +27,115 @@ import {
 } from '@/features/sidebar-tree/store/expanded-items-store';
 import { useSourceTrees } from '@/features/sidebar-tree/queries/use-source-tree';
 import { useSyncNode } from '@/features/sidebar-tree/queries/use-sync-node';
-import type { IFileNode, ISource } from '@/lib/api/types';
+import type { TFileNode, TSource, TSourceTree } from '@/lib/api/types';
 
 const ROOT_ID = '__root__';
 const INDENT_SIZE = 18;
 
-interface ITreeItemData {
+type TTreeItemData = {
   name: string;
   path: string;
   type: 'root' | 'file' | 'folder';
   sourceId?: string;
   children: string[];
-}
+};
 
-interface ISidebarTreeViewProps {
-  sources: ISource[];
-}
+type TSidebarTreeViewProps = {
+  sources: TSource[];
+};
 
-function ChevronIcon({ expanded, className }: { expanded: boolean; className?: string }) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      className={cn(
-        'transition-transform duration-150 ease-out',
-        expanded ? 'rotate-90' : 'rotate-0',
-        className,
-      )}
-    >
-      <path
-        d="M9 6l6 6-6 6"
-        stroke="currentColor"
-        strokeWidth={2}
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
+function buildTreeModel(
+  sources: TSource[],
+  sourceTrees: (TSourceTree | undefined)[],
+) {
+  const map = new Map<string, TTreeItemData>();
+  const parents = new Map<string, string>();
 
-export function SidebarTreeView({ sources }: ISidebarTreeViewProps) {
-  const sourceIds = useMemo(() => sources.map((s) => s.id), [sources]);
-  const treeQueries = useSourceTrees(sourceIds);
-  const syncNode = useSyncNode();
-  const activeTabPath = useOpenTabsStore((state) => state.activeTabPath);
-  const openTab = openTabsStoreActions.openTab;
-  const expandedItems = useExpandedItemsStore((state) => state.expandedItems);
-  const setExpandedItems = expandedItemsStoreActions.setExpandedItems;
-  const expandPaths = expandedItemsStoreActions.expandPaths;
+  map.set(ROOT_ID, {
+    name: 'root',
+    path: ROOT_ID,
+    type: 'root',
+    children: sources.map((source) => source.id),
+  });
 
-  const { itemMap, parentMap } = useMemo(() => {
-    const map = new Map<string, ITreeItemData>();
-    const parents = new Map<string, string>();
-
-    map.set(ROOT_ID, {
-      name: 'root',
-      path: ROOT_ID,
+  sources.forEach((source, index) => {
+    const result = sourceTrees[index];
+    map.set(source.id, {
+      name: source.name,
+      path: source.path,
       type: 'root',
-      children: sources.map((s) => s.id),
+      sourceId: source.id,
+      children: (result?.tree ?? []).map((node) => node.path),
     });
 
-    sources.forEach((source, index) => {
-      const result = treeQueries[index]?.data;
-      map.set(source.id, {
-        name: source.name,
-        path: source.path,
-        type: 'root',
-        sourceId: source.id,
-        children: (result?.tree ?? []).map((node) => node.path),
-      });
-
-      function registerNodes(nodes: IFileNode[], parentId: string) {
-        for (const node of nodes) {
-          map.set(node.path, {
-            name: node.name,
-            path: node.path,
-            type: node.type,
-            sourceId: source.id,
-            children: node.children?.map((c) => c.path) ?? [],
-          });
-          parents.set(node.path, parentId);
-          if (node.children) {
-            registerNodes(node.children, node.path);
-          }
+    function registerNodes(nodes: TFileNode[], parentId: string) {
+      for (const node of nodes) {
+        map.set(node.path, {
+          name: node.name,
+          path: node.path,
+          type: node.type,
+          sourceId: source.id,
+          children: node.children?.map((child) => child.path) ?? [],
+        });
+        parents.set(node.path, parentId);
+        if (node.children) {
+          registerNodes(node.children, node.path);
         }
       }
+    }
 
-      registerNodes(result?.tree ?? [], source.id);
-    });
+    registerNodes(result?.tree ?? [], source.id);
+  });
 
-    return { itemMap: map, parentMap: parents };
-  }, [sources, treeQueries]);
+  return { itemMap: map, parentMap: parents };
+}
 
+export function SidebarTreeView({ sources }: TSidebarTreeViewProps) {
+  // Store state.
+  const activeTabPath = useOpenTabsStore((state) => state.activeTabPath);
+  const expandedItems = useExpandedItemsStore((state) => state.expandedItems);
+
+  // Queries and mutations. Source IDs must be derived before querying trees.
+  const sourceIds = useMemo(
+    () => sources.map((source) => source.id),
+    [sources],
+  );
+  const treeQueries = useSourceTrees(sourceIds);
+  const syncNode = useSyncNode();
+
+  // Derived tree data and query status.
+  const { itemMap, parentMap } = useMemo(
+    () =>
+      buildTreeModel(
+        sources,
+        treeQueries.map((query) => query.data),
+      ),
+    [sources, treeQueries],
+  );
+  const isAnyLoading = treeQueries.some((query) => query.isLoading);
+  const isAnyError = treeQueries.some((query) => query.isError);
+
+  // Tree instance.
+  const tree = useTree<TTreeItemData>({
+    rootItemId: ROOT_ID,
+    getItemName: (item) => item.getItemData().name,
+    isItemFolder: (item) => item.getItemData().type !== 'file',
+    state: { expandedItems },
+    setExpandedItems: expandedItemsStoreActions.setExpandedItems,
+    dataLoader: {
+      getItem: (itemId) =>
+        itemMap.get(itemId) ?? {
+          name: itemId,
+          path: itemId,
+          type: 'file',
+          children: [],
+        },
+      getChildren: (itemId) => itemMap.get(itemId)?.children ?? [],
+    },
+    features: [syncDataLoaderFeature, selectionFeature, hotkeysCoreFeature],
+  });
+
+  // Effects.
   // Auto-expand all ancestor folders of the active tab so it stays visible
   // (e.g. after a page reload where the tree starts collapsed).
   useEffect(() => {
@@ -131,44 +149,23 @@ export function SidebarTreeView({ sources }: ISidebarTreeViewProps) {
       current = parentMap.get(current);
     }
     if (ancestors.length > 0) {
-      expandPaths(ancestors);
+      expandedItemsStoreActions.expandPaths(ancestors);
     }
-  }, [activeTabPath, parentMap, expandPaths]);
+  }, [activeTabPath, parentMap]);
 
   // Seed the persisted expanded set with all source roots the first time
   // sources are loaded (so newly added sources start expanded), without
   // clobbering folders the user has already expanded/collapsed.
   useEffect(() => {
     if (sourceIds.length > 0) {
-      expandPaths(sourceIds);
+      expandedItemsStoreActions.expandPaths(sourceIds);
     }
-  }, [sourceIds, expandPaths]);
-
-  const tree = useTree<ITreeItemData>({
-    rootItemId: ROOT_ID,
-    getItemName: (item) => item.getItemData().name,
-    isItemFolder: (item) => item.getItemData().type !== 'file',
-    state: { expandedItems },
-    setExpandedItems,
-    dataLoader: {
-      getItem: (itemId) => itemMap.get(itemId) ?? {
-        name: itemId,
-        path: itemId,
-        type: 'file',
-        children: [],
-      },
-      getChildren: (itemId) => itemMap.get(itemId)?.children ?? [],
-    },
-    features: [syncDataLoaderFeature, selectionFeature, hotkeysCoreFeature],
-  });
+  }, [sourceIds]);
 
   useEffect(() => {
     // The synchronous loader needs its visible rows rebuilt when query data changes.
     tree.rebuildTree();
   }, [tree, itemMap]);
-
-  const isAnyLoading = treeQueries.some((q) => q.isLoading);
-  const isAnyError = treeQueries.some((q) => q.isError);
 
   if (sources.length === 0) {
     return (
@@ -186,6 +183,7 @@ export function SidebarTreeView({ sources }: ISidebarTreeViewProps) {
           Loading tree...
         </div>
       )}
+
       {isAnyError && (
         <div className="px-2 py-2 text-paragraph-sm text-error-base">
           Failed to load one or more source trees.
@@ -225,7 +223,7 @@ export function SidebarTreeView({ sources }: ISidebarTreeViewProps) {
             onClick={(event) => {
               item.getProps().onClick?.(event);
               if (isFile && data.sourceId) {
-                openTab({
+                openTabsStoreActions.openTab({
                   path: data.path,
                   name: data.name,
                   type: isMarkdown ? 'markdown' : 'html',
@@ -245,9 +243,12 @@ export function SidebarTreeView({ sources }: ISidebarTreeViewProps) {
               ))}
 
             {isFolder ? (
-              <ChevronIcon
-                expanded={isExpanded}
-                className="size-3.5 shrink-0 text-text-soft-400"
+              <RiArrowRightSLine
+                aria-hidden="true"
+                className={cn(
+                  'size-3.5 shrink-0 text-text-soft-400 transition-transform duration-150 ease-out',
+                  isExpanded ? 'rotate-90' : 'rotate-0',
+                )}
               />
             ) : (
               <span className="size-3.5 shrink-0" />
@@ -275,12 +276,7 @@ export function SidebarTreeView({ sources }: ISidebarTreeViewProps) {
               <RiHtml5Line className="size-4 shrink-0 text-warning-base" />
             )}
 
-            <span
-              className={cn(
-                'flex-1 truncate',
-                isRoot && 'text-label-sm',
-              )}
-            >
+            <span className={cn('flex-1 truncate', isRoot && 'text-label-sm')}>
               {data.name}
             </span>
 

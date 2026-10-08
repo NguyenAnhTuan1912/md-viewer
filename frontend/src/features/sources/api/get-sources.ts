@@ -1,6 +1,6 @@
 import { apiClient } from '@/lib/api/client';
-import type { ISource } from '@/lib/api/types';
+import type { TSource } from '@/lib/api/types';
 
 export function getSources() {
-  return apiClient.get<ISource[]>('/sources');
+  return apiClient.get<TSource[]>('/sources');
 }

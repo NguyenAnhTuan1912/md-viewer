@@ -5,6 +5,8 @@ describe('loadAppConfig', () => {
   it('preserves the backend port and existing storage/static paths', () => {
     expect(loadAppConfig({}, '/workspace/backend')).toEqual({
       port: 19121,
+      publicUrl: 'http://127.0.0.1:19121',
+      environment: 'development',
       sourceConfigPath: '/workspace/backend/data/sources.config.json',
       frontendDistPath: '/workspace/frontend/dist',
     });
@@ -22,6 +24,8 @@ describe('loadAppConfig', () => {
       ),
     ).toEqual({
       port: 3000,
+      publicUrl: 'http://127.0.0.1:3000',
+      environment: 'development',
       sourceConfigPath: path.resolve('/workspace/backend/storage/sources.json'),
       frontendDistPath: '/srv/viewer',
     });

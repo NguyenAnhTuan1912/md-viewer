@@ -1,13 +1,13 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-interface IExpandedItemsState {
+type TExpandedItemsState = {
   expandedItems: string[];
-}
+};
 
-export const useExpandedItemsStore = create<IExpandedItemsState>()(
+export const useExpandedItemsStore = create<TExpandedItemsState>()(
   persist(
-    (): IExpandedItemsState => ({
+    (): TExpandedItemsState => ({
       expandedItems: [],
     }),
     {

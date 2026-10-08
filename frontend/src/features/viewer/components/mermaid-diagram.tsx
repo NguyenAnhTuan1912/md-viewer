@@ -2,16 +2,21 @@ import { useEffect, useId, useRef, useState } from 'react';
 import mermaid from 'mermaid';
 import { useThemeStore } from '@/features/theme/store/theme-store';
 
-interface IMermaidDiagramProps {
+type TMermaidDiagramProps = {
   code: string;
-}
+};
 
-export function MermaidDiagram({ code }: IMermaidDiagramProps) {
-  const containerId = useId().replace(/:/g, '-');
-  const containerRef = useRef<HTMLDivElement>(null);
+export function MermaidDiagram({ code }: TMermaidDiagramProps) {
+  // Local and persisted state.
   const [error, setError] = useState<string | null>(null);
   const isDarkMode = useThemeStore((state) => state.isDarkMode);
 
+  // DOM reference and stable diagram identifier.
+  const containerRef = useRef<HTMLDivElement>(null);
+  const diagramId = useId();
+  const containerId = diagramId.replace(/:/g, '-');
+
+  // Render again when content or theme changes; ignore stale async results.
   useEffect(() => {
     let isCancelled = false;
 
@@ -30,7 +35,9 @@ export function MermaidDiagram({ code }: IMermaidDiagramProps) {
         }
       } catch (err) {
         if (!isCancelled) {
-          setError(err instanceof Error ? err.message : 'Failed to render diagram');
+          setError(
+            err instanceof Error ? err.message : 'Failed to render diagram',
+          );
         }
       }
     }

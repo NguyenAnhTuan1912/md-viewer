@@ -1,13 +1,13 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-interface IThemeState {
+type TThemeState = {
   isDarkMode: boolean;
-}
+};
 
-export const useThemeStore = create<IThemeState>()(
+export const useThemeStore = create<TThemeState>()(
   persist(
-    (): IThemeState => ({
+    (): TThemeState => ({
       isDarkMode: false,
     }),
     {

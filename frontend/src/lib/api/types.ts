@@ -1,29 +1,29 @@
-export interface ISource {
+export type TSource = {
   id: string;
   path: string;
   name: string;
   addedAt: string;
-}
+};
 
 export type TFileNodeType = 'file' | 'folder';
 
-export interface IFileNode {
+export type TFileNode = {
   name: string;
   path: string;
   type: TFileNodeType;
   extension?: string;
-  children?: IFileNode[];
-}
+  children?: TFileNode[];
+};
 
-export interface ISourceTree {
+export type TSourceTree = {
   sourceId: string;
   sourceName: string;
-  tree: IFileNode[];
-}
+  tree: TFileNode[];
+};
 
 export type TFileContentType = 'markdown' | 'html';
 
-export interface IFileContent {
+export type TFileContent = {
   content: string;
   type: TFileContentType;
-}
+};

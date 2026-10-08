@@ -2,22 +2,22 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import type { TFileContentType } from '@/lib/api/types';
 
-export interface IOpenTab {
+export type TOpenTab = {
   path: string;
   name: string;
   type: TFileContentType;
-}
+};
 
-interface IOpenTabsState {
-  tabs: IOpenTab[];
+type TOpenTabsState = {
+  tabs: TOpenTab[];
   activeTabPath: string | null;
   /** Previously focused tabs, most recent last. */
   focusHistory: string[];
-}
+};
 
-export const useOpenTabsStore = create<IOpenTabsState>()(
+export const useOpenTabsStore = create<TOpenTabsState>()(
   persist(
-    (): IOpenTabsState => ({
+    (): TOpenTabsState => ({
       tabs: [],
       activeTabPath: null,
       focusHistory: [],
@@ -29,7 +29,7 @@ export const useOpenTabsStore = create<IOpenTabsState>()(
 );
 
 export const openTabsStoreActions = {
-  openTab: (tab: IOpenTab) => {
+  openTab: (tab: TOpenTab) => {
     const { tabs, activeTabPath, focusHistory } = useOpenTabsStore.getState();
     const exists = tabs.some((t) => t.path === tab.path);
 

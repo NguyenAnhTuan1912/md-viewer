@@ -2,12 +2,12 @@ import * as Switch from '@/components/ui/switch';
 import * as Tooltip from '@/components/ui/tooltip';
 import { RiMoonLine, RiSunLine } from '@remixicon/react';
 
-interface IHeaderProps {
+type THeaderProps = {
   isDarkMode: boolean;
   onToggleDarkMode: (checked: boolean) => void;
-}
+};
 
-export function Header({ isDarkMode, onToggleDarkMode }: IHeaderProps) {
+export function Header({ isDarkMode, onToggleDarkMode }: THeaderProps) {
   return (
     <header className="flex h-14 shrink-0 items-center justify-between border-b border-stroke-soft-200 bg-bg-white-0 px-5">
       <span className="text-label-md text-text-strong-950">

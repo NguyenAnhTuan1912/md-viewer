@@ -1,12 +1,12 @@
 import { apiClient } from '@/lib/api/client';
-import type { IFileNode } from '@/lib/api/types';
+import type { TFileNode } from '@/lib/api/types';
 
-export interface ISyncNodeInput {
+export type TSyncNodeInput = {
   sourceId: string;
   /** Root source path or subfolder path being synced. */
   path: string;
-}
+};
 
-export function syncNode({ path }: ISyncNodeInput) {
-  return apiClient.post<IFileNode[]>('/nodes/sync', { path });
+export function syncNode({ path }: TSyncNodeInput) {
+  return apiClient.post<TFileNode[]>('/nodes/sync', { path });
 }

@@ -232,13 +232,13 @@ function createComponents(
   };
 }
 
-interface IMarkdownViewerProps {
+type TMarkdownViewerProps = {
   content: string;
   filePath: string;
   sourceRoot?: string;
-}
+};
 
-export function MarkdownViewer({ content, filePath, sourceRoot }: IMarkdownViewerProps) {
+export function MarkdownViewer({ content, filePath, sourceRoot }: TMarkdownViewerProps) {
   useHighlightTheme();
 
   const components = React.useMemo(

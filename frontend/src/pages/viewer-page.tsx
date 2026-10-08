@@ -6,11 +6,18 @@ import { MarkdownViewer } from '@/features/viewer/components/markdown-viewer';
 import { HtmlViewer } from '@/features/viewer/components/html-viewer';
 
 export function ViewerPage() {
+  // Store state.
   const activeTabPath = useOpenTabsStore((state) => state.activeTabPath);
+
+  // Queries.
   const { data: sources } = useSources();
+  const {
+    data: fileContent,
+    isLoading,
+    isError,
+  } = useFileContent(activeTabPath);
 
-  const { data: fileContent, isLoading, isError } = useFileContent(activeTabPath);
-
+  // Derived preview context.
   // Find the registered source whose root contains the active file, so
   // root-relative asset references (e.g. `/images/logo.png`) can be
   // resolved against that source's folder instead of the real filesystem

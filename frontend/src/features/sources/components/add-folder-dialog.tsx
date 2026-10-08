@@ -6,15 +6,20 @@ import { useAddSource } from '@/features/sources/queries/use-add-source';
 import { ApiError } from '@/lib/api/client';
 import { RiFolderAddLine } from '@remixicon/react';
 
-interface IAddFolderDialogProps {
+type TAddFolderDialogProps = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-}
+};
 
-export function AddFolderDialog({ open, onOpenChange }: IAddFolderDialogProps) {
+export function AddFolderDialog({ open, onOpenChange }: TAddFolderDialogProps) {
+  // Local state.
   const [path, setPath] = useState('');
+
+  // Mutation.
   const addSource = useAddSource();
 
+  // Derived form state.
+  const isSubmitDisabled = addSource.isPending || path.trim().length === 0;
   const errorMessage =
     addSource.error instanceof ApiError
       ? addSource.error.message
@@ -22,6 +27,7 @@ export function AddFolderDialog({ open, onOpenChange }: IAddFolderDialogProps) {
         ? 'Failed to add folder.'
         : null;
 
+  // Event handlers.
   function handleSubmit(event: React.FormEvent) {
     event.preventDefault();
     const trimmedPath = path.trim();
@@ -91,7 +97,7 @@ export function AddFolderDialog({ open, onOpenChange }: IAddFolderDialogProps) {
               mode="filled"
               size="small"
               className="w-full"
-              disabled={addSource.isPending || path.trim().length === 0}
+              disabled={isSubmitDisabled}
             >
               {addSource.isPending ? 'Adding...' : 'Add Folder'}
             </Button.Root>

@@ -8,8 +8,6 @@ import { cn } from '@/lib/cn';
 export function TabBar() {
   const tabs = useOpenTabsStore((state) => state.tabs);
   const activeTabPath = useOpenTabsStore((state) => state.activeTabPath);
-  const focusTab = openTabsStoreActions.focusTab;
-  const closeTab = openTabsStoreActions.closeTab;
 
   if (tabs.length === 0) {
     return null;
@@ -26,7 +24,7 @@ export function TabBar() {
             key={tab.path}
             role="tab"
             aria-selected={isActive}
-            onClick={() => focusTab(tab.path)}
+            onClick={() => openTabsStoreActions.focusTab(tab.path)}
             className={cn(
               'group/tab relative flex min-w-[120px] max-w-[200px] shrink-0 cursor-pointer items-center gap-2 border-r border-stroke-soft-200 px-3 text-paragraph-sm transition-colors',
               isActive
@@ -44,7 +42,7 @@ export function TabBar() {
               aria-label={`Close ${tab.name}`}
               onClick={(event) => {
                 event.stopPropagation();
-                closeTab(tab.path);
+                openTabsStoreActions.closeTab(tab.path);
               }}
               className={cn(
                 'flex size-5 shrink-0 items-center justify-center rounded-md text-text-soft-400 opacity-0 transition-opacity hover:bg-bg-soft-200 hover:text-text-strong-950 group-hover/tab:opacity-100',

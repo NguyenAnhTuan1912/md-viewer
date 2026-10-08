@@ -13,25 +13,19 @@ import { cn } from '@/lib/cn';
 import { RiAddLine } from '@remixicon/react';
 
 export function Sidebar() {
+  // Local and persisted state.
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
-  const { data: sources, isLoading, isError } = useSources();
-
-  const width = useSidebarStore((state) => state.width);
-  const setWidth = sidebarStoreActions.setWidth;
   const [isResizing, setIsResizing] = useState(false);
+  const width = useSidebarStore((state) => state.width);
+
+  // Refs retain pointer coordinates throughout a resize gesture.
   const startXRef = useRef(0);
   const startWidthRef = useRef(width);
 
-  const handlePointerDown = useCallback(
-    (event: React.PointerEvent) => {
-      event.preventDefault();
-      startXRef.current = event.clientX;
-      startWidthRef.current = width;
-      setIsResizing(true);
-    },
-    [width],
-  );
+  // Server state.
+  const { data: sources, isLoading, isError } = useSources();
 
+  // Effects.
   useEffect(() => {
     if (!isResizing) {
       return;
@@ -39,7 +33,7 @@ export function Sidebar() {
 
     function handlePointerMove(event: PointerEvent) {
       const delta = event.clientX - startXRef.current;
-      setWidth(startWidthRef.current + delta);
+      sidebarStoreActions.setWidth(startWidthRef.current + delta);
     }
 
     function handlePointerUp() {
@@ -57,7 +51,18 @@ export function Sidebar() {
       document.body.style.cursor = '';
       document.body.style.userSelect = '';
     };
-  }, [isResizing, setWidth]);
+  }, [isResizing]);
+
+  // Event handlers.
+  const handlePointerDown = useCallback(
+    (event: React.PointerEvent) => {
+      event.preventDefault();
+      startXRef.current = event.clientX;
+      startWidthRef.current = width;
+      setIsResizing(true);
+    },
+    [width],
+  );
 
   return (
     <aside

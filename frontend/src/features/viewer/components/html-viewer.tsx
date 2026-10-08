@@ -1,11 +1,11 @@
 import { useMemo } from 'react';
 import { rewriteHtmlAssetUrls } from '@/features/viewer/lib/rewrite-html-asset-urls';
 
-interface IHtmlViewerProps {
+type THtmlViewerProps = {
   content: string;
   filePath: string;
   sourceRoot?: string;
-}
+};
 
 /**
  * Renders raw HTML content inside a sandboxed iframe.
@@ -24,7 +24,7 @@ interface IHtmlViewerProps {
  * otherwise the browser would resolve them against the SPA's own origin
  * and they would 404.
  */
-export function HtmlViewer({ content, filePath, sourceRoot }: IHtmlViewerProps) {
+export function HtmlViewer({ content, filePath, sourceRoot }: THtmlViewerProps) {
   const rewrittenContent = useMemo(
     () => rewriteHtmlAssetUrls(content, filePath, sourceRoot),
     [content, filePath, sourceRoot],

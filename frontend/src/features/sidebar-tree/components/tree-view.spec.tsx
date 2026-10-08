@@ -6,9 +6,9 @@ import { useOpenTabsStore } from '@/features/viewer/store/open-tabs-store';
 import {
   useExpandedItemsStore,
 } from '@/features/sidebar-tree/store/expanded-items-store';
-import type { ISource, ISourceTree } from '@/lib/api/types';
+import type { TSource, TSourceTree } from '@/lib/api/types';
 
-const mockTree: ISourceTree = {
+const mockTree: TSourceTree = {
   sourceId: 'source-1',
   sourceName: 'demo-docs',
   tree: [
@@ -34,7 +34,7 @@ const mockTree: ISourceTree = {
   ],
 };
 
-const sources: ISource[] = [
+const sources: TSource[] = [
   {
     id: 'source-1',
     path: '/tmp/demo-docs',

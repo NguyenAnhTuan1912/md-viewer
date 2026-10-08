@@ -20,5 +20,7 @@ export function loadAppConfig(
       cwd,
       env.FRONTEND_DIST_PATH || '../frontend/dist',
     ),
+    publicUrl: env.PUBLIC_URL || `http://127.0.0.1:${port}`,
+    environment: env.NODE_ENV || 'development',
   };
 }

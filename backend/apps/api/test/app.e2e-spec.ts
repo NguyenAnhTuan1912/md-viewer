@@ -217,6 +217,8 @@ describe('Application configuration and static hosting (e2e)', () => {
     // provider construction, before TestingModule.createNestApplication runs.
     app = await createApplication({
       port: 19121,
+      publicUrl: 'http://127.0.0.1:19121',
+      environment: 'test',
       frontendDistPath,
       sourceConfigPath: path.join(tmpDir, 'data', 'sources.json'),
     });
