@@ -1,4 +1,4 @@
-import { API_BASE_URL } from '@/lib/api/client';
+import { API_BASE_URL } from "@/lib/api/client";
 
 const ABSOLUTE_URL_PATTERN = /^([a-z][a-z0-9+.-]*:)?\/\//i;
 const NON_FILE_SCHEME_PATTERN = /^(data|blob|mailto|tel):/i;
@@ -8,22 +8,22 @@ const NON_FILE_SCHEME_PATTERN = /^(data|blob|mailto|tel):/i;
  * backend resolves paths on disk regardless of the browser's own URL/host).
  */
 function joinPosixPath(base: string, relative: string): string {
-  const baseSegments = base.split('/').filter(Boolean);
-  const relativeSegments = relative.split('/');
+  const baseSegments = base.split("/").filter(Boolean);
+  const relativeSegments = relative.split("/");
 
   const segments = [...baseSegments];
   for (const segment of relativeSegments) {
-    if (segment === '' || segment === '.') {
+    if (segment === "" || segment === ".") {
       continue;
     }
-    if (segment === '..') {
+    if (segment === "..") {
       segments.pop();
     } else {
       segments.push(segment);
     }
   }
 
-  return `/${segments.join('/')}`;
+  return `/${segments.join("/")}`;
 }
 
 /**
@@ -55,22 +55,20 @@ export function resolveAssetUrl(
 
   const trimmed = assetRef.trim();
   if (
-    trimmed === '' ||
+    trimmed === "" ||
     ABSOLUTE_URL_PATTERN.test(trimmed) ||
     NON_FILE_SCHEME_PATTERN.test(trimmed) ||
-    trimmed.startsWith('#')
+    trimmed.startsWith("#")
   ) {
     return assetRef;
   }
 
   let absolutePath: string;
-  if (trimmed.startsWith('/')) {
-    absolutePath = sourceRoot
-      ? joinPosixPath(sourceRoot, trimmed)
-      : trimmed;
+  if (trimmed.startsWith("/")) {
+    absolutePath = sourceRoot ? joinPosixPath(sourceRoot, trimmed) : trimmed;
   } else {
     absolutePath = joinPosixPath(
-      currentFilePath.slice(0, currentFilePath.lastIndexOf('/')),
+      currentFilePath.slice(0, currentFilePath.lastIndexOf("/")),
       trimmed,
     );
   }

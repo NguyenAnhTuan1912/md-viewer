@@ -1,4 +1,4 @@
-export type FileNodeType = 'file' | 'folder';
+export type FileNodeType = "file" | "folder";
 
 export interface FileNodeProps {
   name: string;
@@ -24,7 +24,7 @@ export class FileNode {
   }
 
   static file(name: string, filePath: string, extension: string): FileNode {
-    return new FileNode({ name, path: filePath, type: 'file', extension });
+    return new FileNode({ name, path: filePath, type: "file", extension });
   }
 
   static folder(
@@ -32,6 +32,6 @@ export class FileNode {
     folderPath: string,
     children: FileNode[],
   ): FileNode {
-    return new FileNode({ name, path: folderPath, type: 'folder', children });
+    return new FileNode({ name, path: folderPath, type: "folder", children });
   }
 }

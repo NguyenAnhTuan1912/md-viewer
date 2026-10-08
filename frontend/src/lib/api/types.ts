@@ -5,7 +5,7 @@ export type TSource = {
   addedAt: string;
 };
 
-export type TFileNodeType = 'file' | 'folder';
+export type TFileNodeType = "file" | "folder";
 
 export type TFileNode = {
   name: string;
@@ -21,7 +21,7 @@ export type TSourceTree = {
   tree: TFileNode[];
 };
 
-export type TFileContentType = 'markdown' | 'html';
+export type TFileContentType = "markdown" | "html";
 
 export type TFileContent = {
   content: string;

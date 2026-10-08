@@ -1,5 +1,5 @@
-import { useMemo } from 'react';
-import { rewriteHtmlAssetUrls } from '@/features/viewer/lib/rewrite-html-asset-urls';
+import { useMemo } from "react";
+import { rewriteHtmlAssetUrls } from "@/features/viewer/lib/rewrite-html-asset-urls";
 
 type THtmlViewerProps = {
   content: string;
@@ -24,7 +24,11 @@ type THtmlViewerProps = {
  * otherwise the browser would resolve them against the SPA's own origin
  * and they would 404.
  */
-export function HtmlViewer({ content, filePath, sourceRoot }: THtmlViewerProps) {
+export function HtmlViewer({
+  content,
+  filePath,
+  sourceRoot,
+}: THtmlViewerProps) {
   const rewrittenContent = useMemo(
     () => rewriteHtmlAssetUrls(content, filePath, sourceRoot),
     [content, filePath, sourceRoot],

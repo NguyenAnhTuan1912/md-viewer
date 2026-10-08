@@ -1,5 +1,5 @@
-import { apiClient } from '@/lib/api/client';
-import type { TFileNode } from '@/lib/api/types';
+import { apiClient } from "@/lib/api/client";
+import type { TFileNode } from "@/lib/api/types";
 
 export type TSyncNodeInput = {
   sourceId: string;
@@ -8,5 +8,5 @@ export type TSyncNodeInput = {
 };
 
 export function syncNode({ path }: TSyncNodeInput) {
-  return apiClient.post<TFileNode[]>('/nodes/sync', { path });
+  return apiClient.post<TFileNode[]>("/nodes/sync", { path });
 }

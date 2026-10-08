@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 
 /**
  * Recursively clones React children, adding additional props to components with matched display names.
@@ -26,7 +26,7 @@ export function recursiveCloneChildren(
       }
 
       const displayName =
-        (child.type as React.ComponentType)?.displayName || '';
+        (child.type as React.ComponentType)?.displayName || "";
       const newProps = displayNames.includes(displayName)
         ? additionalProps
         : {};

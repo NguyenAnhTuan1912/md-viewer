@@ -1,11 +1,11 @@
 // AlignUI Modal v0.0.0
 
-import * as React from 'react';
-import * as DialogPrimitive from '@radix-ui/react-dialog';
-import { RiCloseLine, type RemixiconComponentType } from '@remixicon/react';
+import * as React from "react";
+import * as DialogPrimitive from "@radix-ui/react-dialog";
+import { RiCloseLine, type RemixiconComponentType } from "@remixicon/react";
 
-import * as CompactButton from '@/components/ui/compact-button';
-import { cn } from '@/lib/cn';
+import * as CompactButton from "@/components/ui/compact-button";
+import { cn } from "@/lib/cn";
 
 const ModalRoot = DialogPrimitive.Root;
 const ModalTrigger = DialogPrimitive.Trigger;
@@ -21,16 +21,16 @@ const ModalOverlay = React.forwardRef<
       ref={forwardedRef}
       className={cn(
         // base
-        'fixed inset-0 z-50 flex flex-col items-center justify-center overflow-y-auto bg-overlay p-4 backdrop-blur-[10px]',
+        "fixed inset-0 z-50 flex flex-col items-center justify-center overflow-y-auto bg-overlay p-4 backdrop-blur-[10px]",
         // animation
-        'data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
+        "data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
         className,
       )}
       {...rest}
     />
   );
 });
-ModalOverlay.displayName = 'ModalOverlay';
+ModalOverlay.displayName = "ModalOverlay";
 
 const ModalContent = React.forwardRef<
   React.ComponentRef<typeof DialogPrimitive.Content>,
@@ -50,14 +50,14 @@ const ModalContent = React.forwardRef<
             ref={forwardedRef}
             className={cn(
               // base
-              'relative w-full max-w-[400px]',
-              'rounded-20 bg-bg-white-0 shadow-regular-md',
+              "relative w-full max-w-[400px]",
+              "rounded-20 bg-bg-white-0 shadow-regular-md",
               // focus
-              'focus:outline-none',
+              "focus:outline-none",
               // animation
-              'data-[state=open]:animate-in data-[state=closed]:animate-out',
-              'data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
-              'data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95',
+              "data-[state=open]:animate-in data-[state=closed]:animate-out",
+              "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
+              "data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95",
               className,
             )}
             {...rest}
@@ -80,7 +80,7 @@ const ModalContent = React.forwardRef<
     );
   },
 );
-ModalContent.displayName = 'ModalContent';
+ModalContent.displayName = "ModalContent";
 
 function ModalHeader({
   className,
@@ -97,7 +97,7 @@ function ModalHeader({
   return (
     <div
       className={cn(
-        'relative flex items-start gap-3.5 py-4 pl-5 pr-14 before:absolute before:inset-x-0 before:bottom-0 before:border-b before:border-stroke-soft-200',
+        "relative flex items-start gap-3.5 py-4 pl-5 pr-14 before:absolute before:inset-x-0 before:bottom-0 before:border-b before:border-stroke-soft-200",
         className,
       )}
       {...rest}
@@ -122,7 +122,7 @@ function ModalHeader({
     </div>
   );
 }
-ModalHeader.displayName = 'ModalHeader';
+ModalHeader.displayName = "ModalHeader";
 
 const ModalTitle = React.forwardRef<
   React.ComponentRef<typeof DialogPrimitive.Title>,
@@ -131,12 +131,12 @@ const ModalTitle = React.forwardRef<
   return (
     <DialogPrimitive.Title
       ref={forwardedRef}
-      className={cn('text-label-sm text-text-strong-950', className)}
+      className={cn("text-label-sm text-text-strong-950", className)}
       {...rest}
     />
   );
 });
-ModalTitle.displayName = 'ModalTitle';
+ModalTitle.displayName = "ModalTitle";
 
 const ModalDescription = React.forwardRef<
   React.ComponentRef<typeof DialogPrimitive.Description>,
@@ -145,20 +145,20 @@ const ModalDescription = React.forwardRef<
   return (
     <DialogPrimitive.Description
       ref={forwardedRef}
-      className={cn('text-paragraph-xs text-text-sub-600', className)}
+      className={cn("text-paragraph-xs text-text-sub-600", className)}
       {...rest}
     />
   );
 });
-ModalDescription.displayName = 'ModalDescription';
+ModalDescription.displayName = "ModalDescription";
 
 function ModalBody({
   className,
   ...rest
 }: React.HTMLAttributes<HTMLDivElement>) {
-  return <div className={cn('p-5', className)} {...rest} />;
+  return <div className={cn("p-5", className)} {...rest} />;
 }
-ModalBody.displayName = 'ModalBody';
+ModalBody.displayName = "ModalBody";
 
 function ModalFooter({
   className,
@@ -167,7 +167,7 @@ function ModalFooter({
   return (
     <div
       className={cn(
-        'flex items-center justify-between gap-3 border-t border-stroke-soft-200 px-5 py-4',
+        "flex items-center justify-between gap-3 border-t border-stroke-soft-200 px-5 py-4",
         className,
       )}
       {...rest}
@@ -175,7 +175,7 @@ function ModalFooter({
   );
 }
 
-ModalFooter.displayName = 'ModalFooter';
+ModalFooter.displayName = "ModalFooter";
 
 export {
   ModalRoot as Root,

@@ -1,5 +1,5 @@
-import { apiClient } from '@/lib/api/client';
-import type { TSource } from '@/lib/api/types';
+import { apiClient } from "@/lib/api/client";
+import type { TSource } from "@/lib/api/types";
 
 export type TAddSourceInput = {
   path: string;
@@ -7,5 +7,5 @@ export type TAddSourceInput = {
 };
 
 export function addSource(input: TAddSourceInput) {
-  return apiClient.post<TSource>('/sources', input);
+  return apiClient.post<TSource>("/sources", input);
 }

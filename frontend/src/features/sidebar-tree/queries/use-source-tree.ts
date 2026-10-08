@@ -1,8 +1,8 @@
-import { useQueries, useQuery, useQueryClient } from '@tanstack/react-query';
-import { getSourceTree } from '@/features/sidebar-tree/api/get-source-tree';
+import { useQueries, useQuery, useQueryClient } from "@tanstack/react-query";
+import { getSourceTree } from "@/features/sidebar-tree/api/get-source-tree";
 
 export function sourceTreeQueryKey(sourceId: string) {
-  return ['sources', sourceId, 'tree'] as const;
+  return ["sources", sourceId, "tree"] as const;
 }
 
 export function useSourceTree(sourceId: string) {

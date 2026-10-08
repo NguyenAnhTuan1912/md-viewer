@@ -1,43 +1,43 @@
 // AlignUI Alert v0.0.0
 
-import * as React from 'react';
-import { RiCloseLine } from '@remixicon/react';
+import * as React from "react";
+import { RiCloseLine } from "@remixicon/react";
 
-import type { TPolymorphicComponentProps } from '@/lib/polymorphic';
-import { recursiveCloneChildren } from '@/lib/recursive-clone-children';
-import { tv, type ClassValue, type VariantProps } from '@/lib/tv';
+import type { TPolymorphicComponentProps } from "@/lib/polymorphic";
+import { recursiveCloneChildren } from "@/lib/recursive-clone-children";
+import { tv, type ClassValue, type VariantProps } from "@/lib/tv";
 
-const ALERT_ROOT_NAME = 'AlertRoot';
-const ALERT_ICON_NAME = 'AlertIcon';
-const ALERT_CLOSE_ICON_NAME = 'AlertCloseIcon';
+const ALERT_ROOT_NAME = "AlertRoot";
+const ALERT_ICON_NAME = "AlertIcon";
+const ALERT_CLOSE_ICON_NAME = "AlertCloseIcon";
 
 export const alertVariants = tv({
   slots: {
-    root: 'w-full',
+    root: "w-full",
     wrapper: [
-      'grid w-full auto-cols-auto grid-flow-col grid-cols-1 items-start has-[>svg:first-child]:grid-cols-[auto,minmax(0,1fr)]',
-      'transition duration-200 ease-out group-data-[expanded=false]/toast:group-data-[front=false]/toast:opacity-0',
+      "grid w-full auto-cols-auto grid-flow-col grid-cols-1 items-start has-[>svg:first-child]:grid-cols-[auto,minmax(0,1fr)]",
+      "transition duration-200 ease-out group-data-[expanded=false]/toast:group-data-[front=false]/toast:opacity-0",
     ],
-    icon: 'shrink-0',
-    closeIcon: '',
+    icon: "shrink-0",
+    closeIcon: "",
   },
   variants: {
     variant: {
       filled: {
-        root: 'text-static-white',
-        closeIcon: 'text-static-white opacity-[.72]',
+        root: "text-static-white",
+        closeIcon: "text-static-white opacity-[.72]",
       },
       light: {
-        root: 'text-text-strong-950',
-        closeIcon: 'text-text-strong-950 opacity-40',
+        root: "text-text-strong-950",
+        closeIcon: "text-text-strong-950 opacity-40",
       },
       lighter: {
-        root: 'text-text-strong-950',
-        closeIcon: 'text-text-strong-950 opacity-40',
+        root: "text-text-strong-950",
+        closeIcon: "text-text-strong-950 opacity-40",
       },
       stroke: {
-        root: 'bg-bg-white-0 text-text-strong-950 shadow-regular-md ring-1 ring-inset ring-stroke-soft-200',
-        closeIcon: 'text-text-strong-950 opacity-40',
+        root: "bg-bg-white-0 text-text-strong-950 shadow-regular-md ring-1 ring-inset ring-stroke-soft-200",
+        closeIcon: "text-text-strong-950 opacity-40",
       },
     },
     status: {
@@ -49,182 +49,182 @@ export const alertVariants = tv({
     },
     size: {
       xsmall: {
-        root: 'rounded-lg p-2 text-paragraph-xs',
-        wrapper: 'gap-2',
-        icon: 'size-4',
-        closeIcon: 'size-4',
+        root: "rounded-lg p-2 text-paragraph-xs",
+        wrapper: "gap-2",
+        icon: "size-4",
+        closeIcon: "size-4",
       },
       small: {
-        root: 'rounded-lg px-2.5 py-2 text-paragraph-sm',
-        wrapper: 'gap-2',
-        icon: 'size-5',
-        closeIcon: 'size-5',
+        root: "rounded-lg px-2.5 py-2 text-paragraph-sm",
+        wrapper: "gap-2",
+        icon: "size-5",
+        closeIcon: "size-5",
       },
       large: {
-        root: 'rounded-xl p-3.5 pb-4 text-paragraph-sm',
-        wrapper: 'items-start gap-3',
-        icon: 'size-5',
-        closeIcon: 'size-5',
+        root: "rounded-xl p-3.5 pb-4 text-paragraph-sm",
+        wrapper: "items-start gap-3",
+        icon: "size-5",
+        closeIcon: "size-5",
       },
     },
   },
   compoundVariants: [
     //#region filled
     {
-      variant: 'filled',
-      status: 'error',
+      variant: "filled",
+      status: "error",
       class: {
-        root: 'bg-error-base',
+        root: "bg-error-base",
       },
     },
     {
-      variant: 'filled',
-      status: 'warning',
+      variant: "filled",
+      status: "warning",
       class: {
-        root: 'bg-warning-base',
+        root: "bg-warning-base",
       },
     },
     {
-      variant: 'filled',
-      status: 'success',
+      variant: "filled",
+      status: "success",
       class: {
-        root: 'bg-success-base',
+        root: "bg-success-base",
       },
     },
     {
-      variant: 'filled',
-      status: 'information',
+      variant: "filled",
+      status: "information",
       class: {
-        root: 'bg-information-base',
+        root: "bg-information-base",
       },
     },
     {
-      variant: 'filled',
-      status: 'feature',
+      variant: "filled",
+      status: "feature",
       class: {
-        root: 'bg-faded-base',
+        root: "bg-faded-base",
       },
     },
     //#endregion
 
     //#region light
     {
-      variant: 'light',
-      status: 'error',
+      variant: "light",
+      status: "error",
       class: {
-        root: 'bg-error-light',
+        root: "bg-error-light",
       },
     },
     {
-      variant: 'light',
-      status: 'warning',
+      variant: "light",
+      status: "warning",
       class: {
-        root: 'bg-warning-light',
+        root: "bg-warning-light",
       },
     },
     {
-      variant: 'light',
-      status: 'success',
+      variant: "light",
+      status: "success",
       class: {
-        root: 'bg-success-light',
+        root: "bg-success-light",
       },
     },
     {
-      variant: 'light',
-      status: 'information',
+      variant: "light",
+      status: "information",
       class: {
-        root: 'bg-information-light',
+        root: "bg-information-light",
       },
     },
     {
-      variant: 'light',
-      status: 'feature',
+      variant: "light",
+      status: "feature",
       class: {
-        root: 'bg-faded-light',
+        root: "bg-faded-light",
       },
     },
     //#endregion
 
     //#region lighter
     {
-      variant: 'lighter',
-      status: 'error',
+      variant: "lighter",
+      status: "error",
       class: {
-        root: 'bg-error-lighter',
+        root: "bg-error-lighter",
       },
     },
     {
-      variant: 'lighter',
-      status: 'warning',
+      variant: "lighter",
+      status: "warning",
       class: {
-        root: 'bg-warning-lighter',
+        root: "bg-warning-lighter",
       },
     },
     {
-      variant: 'lighter',
-      status: 'success',
+      variant: "lighter",
+      status: "success",
       class: {
-        root: 'bg-success-lighter',
+        root: "bg-success-lighter",
       },
     },
     {
-      variant: 'lighter',
-      status: 'information',
+      variant: "lighter",
+      status: "information",
       class: {
-        root: 'bg-information-lighter',
+        root: "bg-information-lighter",
       },
     },
     {
-      variant: 'lighter',
-      status: 'feature',
+      variant: "lighter",
+      status: "feature",
       class: {
-        root: 'bg-faded-lighter',
+        root: "bg-faded-lighter",
       },
     },
     //#endregion
 
     //#region light, lighter, stroke
     {
-      variant: ['light', 'lighter', 'stroke'],
-      status: 'error',
+      variant: ["light", "lighter", "stroke"],
+      status: "error",
       class: {
-        icon: 'text-error-base',
+        icon: "text-error-base",
       },
     },
     {
-      variant: ['light', 'lighter', 'stroke'],
-      status: 'warning',
+      variant: ["light", "lighter", "stroke"],
+      status: "warning",
       class: {
-        icon: 'text-warning-base',
+        icon: "text-warning-base",
       },
     },
     {
-      variant: ['light', 'lighter', 'stroke'],
-      status: 'success',
+      variant: ["light", "lighter", "stroke"],
+      status: "success",
       class: {
-        icon: 'text-success-base',
+        icon: "text-success-base",
       },
     },
     {
-      variant: ['light', 'lighter', 'stroke'],
-      status: 'information',
+      variant: ["light", "lighter", "stroke"],
+      status: "information",
       class: {
-        icon: 'text-information-base',
+        icon: "text-information-base",
       },
     },
     {
-      variant: ['light', 'lighter', 'stroke'],
-      status: 'feature',
+      variant: ["light", "lighter", "stroke"],
+      status: "feature",
       class: {
-        icon: 'text-faded-base',
+        icon: "text-faded-base",
       },
     },
     //#endregion
   ],
   defaultVariants: {
-    size: 'small',
-    variant: 'filled',
-    status: 'information',
+    size: "small",
+    variant: "filled",
+    status: "information",
   },
 });
 
@@ -274,7 +274,7 @@ function AlertIcon<T extends React.ElementType>({
   className,
   as,
 }: TPolymorphicComponentProps<T, TAlertSharedProps>) {
-  const Component = as || 'div';
+  const Component = as || "div";
   const { icon } = alertVariants({ size, variant, status });
 
   return <Component className={icon({ class: className })} />;

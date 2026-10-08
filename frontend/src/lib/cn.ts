@@ -1,16 +1,16 @@
-import clsx, { type ClassValue } from 'clsx';
-import { extendTailwindMerge } from 'tailwind-merge';
+import clsx, { type ClassValue } from "clsx";
+import { extendTailwindMerge } from "tailwind-merge";
 
-export { type ClassValue } from 'clsx';
+export { type ClassValue } from "clsx";
 
 // AlignUI Typography Classes - Dynamic Pattern Matching
 
 const typographyConfig = {
-  title: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
-  label: ['xl', 'lg', 'md', 'sm', 'xs', '2xs'],
-  paragraph: ['xl', 'lg', 'md', 'sm', 'xs'],
-  subheading: ['md', 'sm', 'xs', '2xs'],
-  doc: ['label', 'paragraph'],
+  title: ["h1", "h2", "h3", "h4", "h5", "h6"],
+  label: ["xl", "lg", "md", "sm", "xs", "2xs"],
+  paragraph: ["xl", "lg", "md", "sm", "xs"],
+  subheading: ["md", "sm", "xs", "2xs"],
+  doc: ["label", "paragraph"],
 };
 
 const typographyPatterns = Object.entries(typographyConfig).flatMap(
@@ -20,7 +20,7 @@ const typographyPatterns = Object.entries(typographyConfig).flatMap(
 export const twMergeConfig = {
   extend: {
     classGroups: {
-      'font-size': [
+      "font-size": [
         {
           text: typographyPatterns,
         },

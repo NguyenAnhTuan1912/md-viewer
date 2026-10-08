@@ -1,4 +1,4 @@
-import { Source } from '../../domain/entities/source.entity';
+import { Source } from "../../domain/entities/source.entity";
 
 /**
  * Port for persisting and retrieving the list of registered Sources

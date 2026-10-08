@@ -1,9 +1,9 @@
-import { useMemo } from 'react';
-import { useOpenTabsStore } from '@/features/viewer/store/open-tabs-store';
-import { useSources } from '@/features/sources/queries/use-sources';
-import { useFileContent } from '@/features/viewer/queries/use-file-content';
-import { MarkdownViewer } from '@/features/viewer/components/markdown-viewer';
-import { HtmlViewer } from '@/features/viewer/components/html-viewer';
+import { useMemo } from "react";
+import { useOpenTabsStore } from "@/features/viewer/store/open-tabs-store";
+import { useSources } from "@/features/sources/queries/use-sources";
+import { useFileContent } from "@/features/viewer/queries/use-file-content";
+import { MarkdownViewer } from "@/features/viewer/components/markdown-viewer";
+import { HtmlViewer } from "@/features/viewer/components/html-viewer";
 
 export function ViewerPage() {
   // Store state.
@@ -59,7 +59,7 @@ export function ViewerPage() {
         </div>
       )}
 
-      {activeTabPath && fileContent?.type === 'markdown' && (
+      {activeTabPath && fileContent?.type === "markdown" && (
         <MarkdownViewer
           content={fileContent.content}
           filePath={activeTabPath}
@@ -67,7 +67,7 @@ export function ViewerPage() {
         />
       )}
 
-      {activeTabPath && fileContent?.type === 'html' && (
+      {activeTabPath && fileContent?.type === "html" && (
         <HtmlViewer
           content={fileContent.content}
           filePath={activeTabPath}

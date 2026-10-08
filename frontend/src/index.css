@@ -1,5 +1,5 @@
-@import 'tailwindcss';
-@import 'tw-animate-css';
+@import "tailwindcss";
+@import "tw-animate-css";
 
 @custom-variant dark (&:where(.dark, .dark *));
 
@@ -234,12 +234,15 @@
   --shadow-regular-sm: 0 2px 4px #1b1c1d0a;
   --shadow-regular-md: 0 16px 32px -12px #0e121b1a;
   --shadow-tooltip: 0 12px 24px 0 #0e121b0f, 0 1px 2px 0 #0e121b08;
-  --shadow-button-primary-focus: 0 0 0 2px var(--color-bg-white-0), 0 0 0 4px var(--color-primary-alpha-10);
-  --shadow-button-important-focus: 0 0 0 2px var(--color-bg-white-0), 0 0 0 4px var(--color-gray-alpha-16);
-  --shadow-button-error-focus: 0 0 0 2px var(--color-bg-white-0), 0 0 0 4px var(--color-red-alpha-10);
+  --shadow-button-primary-focus:
+    0 0 0 2px var(--color-bg-white-0), 0 0 0 4px var(--color-primary-alpha-10);
+  --shadow-button-important-focus:
+    0 0 0 2px var(--color-bg-white-0), 0 0 0 4px var(--color-gray-alpha-16);
+  --shadow-button-error-focus:
+    0 0 0 2px var(--color-bg-white-0), 0 0 0 4px var(--color-red-alpha-10);
   --shadow-switch-thumb: 0 4px 8px 0 #1b1c1d0f, 0 2px 4px 0 #0e121b14;
 
-  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
 
   --radius-10: 0.625rem;
   --radius-20: 1.25rem;

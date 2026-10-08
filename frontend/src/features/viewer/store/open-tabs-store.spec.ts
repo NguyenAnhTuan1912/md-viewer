@@ -1,31 +1,35 @@
-import { beforeEach, describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it } from "vitest";
 import {
   useOpenTabsStore,
   openTabsStoreActions,
-} from '@/features/viewer/store/open-tabs-store';
+} from "@/features/viewer/store/open-tabs-store";
 
-const fileA = { path: '/a.md', name: 'a.md', type: 'markdown' as const };
-const fileB = { path: '/b.md', name: 'b.md', type: 'markdown' as const };
-const fileC = { path: '/c.html', name: 'c.html', type: 'html' as const };
+const fileA = { path: "/a.md", name: "a.md", type: "markdown" as const };
+const fileB = { path: "/b.md", name: "b.md", type: "markdown" as const };
+const fileC = { path: "/c.html", name: "c.html", type: "html" as const };
 
-describe('useOpenTabsStore', () => {
+describe("useOpenTabsStore", () => {
   beforeEach(() => {
     localStorage.clear();
-    useOpenTabsStore.setState({ tabs: [], activeTabPath: null, focusHistory: [] });
+    useOpenTabsStore.setState({
+      tabs: [],
+      activeTabPath: null,
+      focusHistory: [],
+    });
   });
 
-  it('starts with no tabs open', () => {
+  it("starts with no tabs open", () => {
     expect(useOpenTabsStore.getState().tabs).toEqual([]);
     expect(useOpenTabsStore.getState().activeTabPath).toBeNull();
   });
 
-  it('openTab adds a new tab and focuses it', () => {
+  it("openTab adds a new tab and focuses it", () => {
     openTabsStoreActions.openTab(fileA);
     expect(useOpenTabsStore.getState().tabs).toHaveLength(1);
     expect(useOpenTabsStore.getState().activeTabPath).toBe(fileA.path);
   });
 
-  it('openTab does not duplicate an already-open tab, just focuses it', () => {
+  it("openTab does not duplicate an already-open tab, just focuses it", () => {
     openTabsStoreActions.openTab(fileA);
     openTabsStoreActions.openTab(fileB);
     openTabsStoreActions.openTab(fileA);
@@ -34,7 +38,7 @@ describe('useOpenTabsStore', () => {
     expect(useOpenTabsStore.getState().activeTabPath).toBe(fileA.path);
   });
 
-  it('closing a non-active tab does not change the active tab', () => {
+  it("closing a non-active tab does not change the active tab", () => {
     openTabsStoreActions.openTab(fileA);
     openTabsStoreActions.openTab(fileB);
     // fileB is active now; close fileA (not active)
@@ -44,7 +48,7 @@ describe('useOpenTabsStore', () => {
     expect(useOpenTabsStore.getState().tabs).toHaveLength(1);
   });
 
-  it('closing the active tab restores focus to the most recently focused remaining tab (history-based, not left-neighbor)', () => {
+  it("closing the active tab restores focus to the most recently focused remaining tab (history-based, not left-neighbor)", () => {
     openTabsStoreActions.openTab(fileA); // active: A, history: []
     openTabsStoreActions.openTab(fileB); // active: B, history: [A]
     openTabsStoreActions.openTab(fileC); // active: C, history: [A, B]
@@ -62,7 +66,7 @@ describe('useOpenTabsStore', () => {
     ]);
   });
 
-  it('falls back to the last remaining tab when history is exhausted', () => {
+  it("falls back to the last remaining tab when history is exhausted", () => {
     openTabsStoreActions.openTab(fileA);
     openTabsStoreActions.closeTab(fileA.path);
     openTabsStoreActions.openTab(fileB);
@@ -73,7 +77,7 @@ describe('useOpenTabsStore', () => {
     expect(useOpenTabsStore.getState().activeTabPath).toBe(fileB.path);
   });
 
-  it('sets activeTabPath to null when closing the last remaining tab', () => {
+  it("sets activeTabPath to null when closing the last remaining tab", () => {
     openTabsStoreActions.openTab(fileA);
     openTabsStoreActions.closeTab(fileA.path);
 
@@ -81,7 +85,7 @@ describe('useOpenTabsStore', () => {
     expect(useOpenTabsStore.getState().activeTabPath).toBeNull();
   });
 
-  it('focusTab switches the active tab without altering the tab list', () => {
+  it("focusTab switches the active tab without altering the tab list", () => {
     openTabsStoreActions.openTab(fileA);
     openTabsStoreActions.openTab(fileB);
     openTabsStoreActions.focusTab(fileA.path);
@@ -90,9 +94,9 @@ describe('useOpenTabsStore', () => {
     expect(useOpenTabsStore.getState().tabs).toHaveLength(2);
   });
 
-  it('persists tabs to localStorage', () => {
+  it("persists tabs to localStorage", () => {
     openTabsStoreActions.openTab(fileA);
-    const stored = localStorage.getItem('md-viewer-open-tabs');
+    const stored = localStorage.getItem("md-viewer-open-tabs");
     expect(stored).not.toBeNull();
     const parsed = JSON.parse(stored!);
     expect(parsed.state.tabs).toHaveLength(1);

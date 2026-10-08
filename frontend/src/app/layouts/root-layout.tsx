@@ -1,8 +1,11 @@
-import type { PropsWithChildren } from 'react';
-import { Sidebar } from '@/app/layouts/sidebar';
-import { Header } from '@/app/layouts/header';
-import { TabBar } from '@/features/viewer/components/tab-bar';
-import { useThemeStore, themeStoreActions } from '@/features/theme/store/theme-store';
+import type { PropsWithChildren } from "react";
+import { Sidebar } from "@/app/layouts/sidebar";
+import { Header } from "@/app/layouts/header";
+import { TabBar } from "@/features/viewer/components/tab-bar";
+import {
+  useThemeStore,
+  themeStoreActions,
+} from "@/features/theme/store/theme-store";
 
 export function RootLayout({ children }: PropsWithChildren) {
   const isDarkMode = useThemeStore((state) => state.isDarkMode);

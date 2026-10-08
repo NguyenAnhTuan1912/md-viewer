@@ -1,5 +1,5 @@
-import { Source } from '../../domain/entities/source.entity';
-import { SourceRepository } from '../ports/source.repository';
+import { Source } from "../../domain/entities/source.entity";
+import { SourceRepository } from "../ports/source.repository";
 
 export class ListSourcesUseCase {
   constructor(private readonly sourceRepository: SourceRepository) {}

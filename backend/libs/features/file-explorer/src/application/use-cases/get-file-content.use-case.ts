@@ -1,12 +1,12 @@
 import {
   InvalidFileExplorerInputError,
   FileExplorerNotFoundError,
-} from '../../domain/errors/file-explorer.errors';
-import * as path from 'path';
-import { FileSystemPort } from '../ports/file-system.port';
-import { SourcePathGuard } from '../services/source-path-guard.service';
+} from "../../domain/errors/file-explorer.errors";
+import * as path from "path";
+import { FileSystemPort } from "../ports/file-system.port";
+import { SourcePathGuard } from "../services/source-path-guard.service";
 
-export type FileContentType = 'markdown' | 'html';
+export type FileContentType = "markdown" | "html";
 
 export interface FileContentResult {
   content: string;
@@ -14,8 +14,8 @@ export interface FileContentResult {
 }
 
 const EXTENSION_TYPE_MAP: Record<string, FileContentType> = {
-  '.md': 'markdown',
-  '.html': 'html',
+  ".md": "markdown",
+  ".html": "html",
 };
 
 export class GetFileContentUseCase {
@@ -27,7 +27,7 @@ export class GetFileContentUseCase {
   async execute(requestedPath: string): Promise<FileContentResult> {
     if (!requestedPath) {
       throw new InvalidFileExplorerInputError(
-        'path query parameter is required',
+        "path query parameter is required",
       );
     }
 
@@ -37,7 +37,7 @@ export class GetFileContentUseCase {
     const type = EXTENSION_TYPE_MAP[extension];
     if (!type) {
       throw new InvalidFileExplorerInputError(
-        `Unsupported file type: ${extension || '(none)'}`,
+        `Unsupported file type: ${extension || "(none)"}`,
       );
     }
 

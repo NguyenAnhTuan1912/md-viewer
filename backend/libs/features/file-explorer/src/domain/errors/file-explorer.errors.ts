@@ -1,12 +1,12 @@
 /** Feature errors are independent of HTTP; presentation chooses status codes. */
 export class InvalidFileExplorerInputError extends Error {
-  readonly name = 'InvalidFileExplorerInputError';
+  readonly name = "InvalidFileExplorerInputError";
 }
 
 export class FileExplorerNotFoundError extends Error {
-  readonly name = 'FileExplorerNotFoundError';
+  readonly name = "FileExplorerNotFoundError";
 }
 
 export class SourceAccessDeniedError extends Error {
-  readonly name = 'SourceAccessDeniedError';
+  readonly name = "SourceAccessDeniedError";
 }

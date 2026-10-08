@@ -1,12 +1,12 @@
-import * as fs from 'fs/promises';
-import * as path from 'path';
-import { Source, SourceProps } from '../../domain/entities/source.entity';
-import { SourceRepository } from '../../application/ports/source.repository';
+import * as fs from "fs/promises";
+import * as path from "path";
+import { Source, SourceProps } from "../../domain/entities/source.entity";
+import { SourceRepository } from "../../application/ports/source.repository";
 
 const DEFAULT_CONFIG_PATH = path.resolve(
   process.cwd(),
-  'data',
-  'sources.config.json',
+  "data",
+  "sources.config.json",
 );
 
 export class JsonSourceRepository implements SourceRepository {
@@ -34,11 +34,11 @@ export class JsonSourceRepository implements SourceRepository {
 
   private async readRaw(): Promise<SourceProps[]> {
     try {
-      const content = await fs.readFile(this.configPath, 'utf-8');
+      const content = await fs.readFile(this.configPath, "utf-8");
       const parsed = JSON.parse(content);
       return Array.isArray(parsed) ? parsed : [];
     } catch (error) {
-      if ((error as NodeJS.ErrnoException).code === 'ENOENT') {
+      if ((error as NodeJS.ErrnoException).code === "ENOENT") {
         return [];
       }
       throw error;
@@ -50,7 +50,7 @@ export class JsonSourceRepository implements SourceRepository {
     await fs.writeFile(
       this.configPath,
       JSON.stringify(sources, null, 2),
-      'utf-8',
+      "utf-8",
     );
   }
 }

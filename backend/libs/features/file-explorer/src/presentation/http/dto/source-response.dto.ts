@@ -1,4 +1,4 @@
-import { Source } from '../../../domain/entities/source.entity';
+import { Source } from "../../../domain/entities/source.entity";
 
 export class SourceResponseDto {
   id: string;

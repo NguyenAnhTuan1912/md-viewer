@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 
 type TAsProp<T extends React.ElementType> = {
   as?: T;
@@ -13,7 +13,7 @@ type TPolymorphicComponentProp<
   Omit<React.ComponentPropsWithoutRef<T>, TPropsToOmit<T, Props>>;
 
 export type TPolymorphicRef<T extends React.ElementType> =
-  React.ComponentPropsWithRef<T>['ref'];
+  React.ComponentPropsWithRef<T>["ref"];
 
 type TPolymorphicComponentPropWithRef<
   T extends React.ElementType,

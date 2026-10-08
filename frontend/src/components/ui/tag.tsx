@@ -1,76 +1,76 @@
 // AlignUI Tag v0.0.0
 
-import * as React from 'react';
-import { Slot } from '@radix-ui/react-slot';
-import { RiCloseFill } from '@remixicon/react';
+import * as React from "react";
+import { Slot } from "@radix-ui/react-slot";
+import { RiCloseFill } from "@remixicon/react";
 
-import { type TPolymorphicComponentProps } from '@/lib/polymorphic';
-import { recursiveCloneChildren } from '@/lib/recursive-clone-children';
-import { tv, type VariantProps } from '@/lib/tv';
+import { type TPolymorphicComponentProps } from "@/lib/polymorphic";
+import { recursiveCloneChildren } from "@/lib/recursive-clone-children";
+import { tv, type VariantProps } from "@/lib/tv";
 
-const TAG_ROOT_NAME = 'TagRoot';
-const TAG_ICON_NAME = 'TagIcon';
-const TAG_DISMISS_BUTTON_NAME = 'TagDismissButton';
-const TAG_DISMISS_ICON_NAME = 'TagDismissIcon';
+const TAG_ROOT_NAME = "TagRoot";
+const TAG_ICON_NAME = "TagIcon";
+const TAG_DISMISS_BUTTON_NAME = "TagDismissButton";
+const TAG_DISMISS_ICON_NAME = "TagDismissIcon";
 
 export const tagVariants = tv({
   slots: {
     root: [
-      'group/tag inline-flex h-6 items-center gap-2 rounded-md px-2 text-label-xs text-text-sub-600',
-      'transition duration-200 ease-out',
-      'ring-1 ring-inset',
+      "group/tag inline-flex h-6 items-center gap-2 rounded-md px-2 text-label-xs text-text-sub-600",
+      "transition duration-200 ease-out",
+      "ring-1 ring-inset",
     ],
     icon: [
       // base
-      '-mx-1 size-4 shrink-0 text-text-soft-400 transition duration-200 ease-out',
+      "-mx-1 size-4 shrink-0 text-text-soft-400 transition duration-200 ease-out",
       // hover
-      'group-hover/tag:text-text-sub-600',
+      "group-hover/tag:text-text-sub-600",
     ],
     dismissButton: [
       // base
-      'group/dismiss-button -ml-1.5 -mr-1 size-4 shrink-0',
+      "group/dismiss-button -ml-1.5 -mr-1 size-4 shrink-0",
       // focus
-      'focus:outline-none',
+      "focus:outline-none",
     ],
-    dismissIcon: 'size-4 text-text-soft-400 transition duration-200 ease-out',
+    dismissIcon: "size-4 text-text-soft-400 transition duration-200 ease-out",
   },
   variants: {
     variant: {
       stroke: {
         root: [
           // base
-          'bg-bg-white-0 ring-stroke-soft-200',
+          "bg-bg-white-0 ring-stroke-soft-200",
           // hover
-          'hover:bg-bg-weak-50 hover:ring-transparent',
+          "hover:bg-bg-weak-50 hover:ring-transparent",
           // focus-within
-          'focus-within:bg-bg-weak-50 focus-within:ring-transparent',
+          "focus-within:bg-bg-weak-50 focus-within:ring-transparent",
         ],
         dismissIcon: [
           // hover
-          'group-hover/dismiss-button:text-text-sub-600',
+          "group-hover/dismiss-button:text-text-sub-600",
           // focus
-          'group-focus/dismiss-button:text-text-sub-600',
+          "group-focus/dismiss-button:text-text-sub-600",
         ],
       },
       gray: {
         root: [
           // base
-          'bg-bg-weak-50 ring-transparent',
+          "bg-bg-weak-50 ring-transparent",
           // hover
-          'hover:bg-bg-white-0 hover:ring-stroke-soft-200',
+          "hover:bg-bg-white-0 hover:ring-stroke-soft-200",
         ],
       },
     },
     disabled: {
       true: {
-        root: 'pointer-events-none bg-bg-weak-50 text-text-disabled-300 ring-transparent',
-        icon: 'text-text-disabled-300 [&:not(.remixicon)]:opacity-[.48]',
-        dismissIcon: 'text-text-disabled-300',
+        root: "pointer-events-none bg-bg-weak-50 text-text-disabled-300 ring-transparent",
+        icon: "text-text-disabled-300 [&:not(.remixicon)]:opacity-[.48]",
+        dismissIcon: "text-text-disabled-300",
       },
     },
   },
   defaultVariants: {
-    variant: 'stroke',
+    variant: "stroke",
   },
 });
 
@@ -87,7 +87,7 @@ const TagRoot = React.forwardRef<HTMLDivElement, TTagProps>(
     forwardedRef,
   ) => {
     const uniqueId = React.useId();
-    const Component = asChild ? Slot : 'div';
+    const Component = asChild ? Slot : "div";
     const { root } = tagVariants({ variant, disabled });
 
     const sharedProps: TTagSharedProps = {
@@ -124,7 +124,7 @@ function TagIcon<T extends React.ElementType>({
   as,
   ...rest
 }: TPolymorphicComponentProps<T, TTagSharedProps>) {
-  const Component = as || 'div';
+  const Component = as || "div";
   const { icon } = tagVariants({ variant, disabled });
 
   return <Component className={icon({ class: className })} {...rest} />;
@@ -144,7 +144,7 @@ const TagDismissButton = React.forwardRef<
     { asChild, children, className, variant, disabled, ...rest },
     forwardedRef,
   ) => {
-    const Component = asChild ? Slot : 'button';
+    const Component = asChild ? Slot : "button";
     const { dismissButton } = tagVariants({ variant, disabled });
 
     return (
@@ -173,7 +173,7 @@ function TagDismissIcon<T extends React.ElementType>({
   as,
   ...rest
 }: TPolymorphicComponentProps<T, TTagSharedProps>) {
-  const Component = as || 'div';
+  const Component = as || "div";
   const { dismissIcon } = tagVariants({ variant, disabled });
 
   return <Component className={dismissIcon({ class: className })} {...rest} />;

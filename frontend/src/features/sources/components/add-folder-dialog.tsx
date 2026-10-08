@@ -1,10 +1,10 @@
-import { useState } from 'react';
-import * as Button from '@/components/ui/button';
-import * as Input from '@/components/ui/input';
-import * as Modal from '@/components/ui/modal';
-import { useAddSource } from '@/features/sources/queries/use-add-source';
-import { ApiError } from '@/lib/api/client';
-import { RiFolderAddLine } from '@remixicon/react';
+import { useState } from "react";
+import * as Button from "@/components/ui/button";
+import * as Input from "@/components/ui/input";
+import * as Modal from "@/components/ui/modal";
+import { useAddSource } from "@/features/sources/queries/use-add-source";
+import { ApiError } from "@/lib/api/client";
+import { RiFolderAddLine } from "@remixicon/react";
 
 type TAddFolderDialogProps = {
   open: boolean;
@@ -13,7 +13,7 @@ type TAddFolderDialogProps = {
 
 export function AddFolderDialog({ open, onOpenChange }: TAddFolderDialogProps) {
   // Local state.
-  const [path, setPath] = useState('');
+  const [path, setPath] = useState("");
 
   // Mutation.
   const addSource = useAddSource();
@@ -24,7 +24,7 @@ export function AddFolderDialog({ open, onOpenChange }: TAddFolderDialogProps) {
     addSource.error instanceof ApiError
       ? addSource.error.message
       : addSource.error
-        ? 'Failed to add folder.'
+        ? "Failed to add folder."
         : null;
 
   // Event handlers.
@@ -38,7 +38,7 @@ export function AddFolderDialog({ open, onOpenChange }: TAddFolderDialogProps) {
       { path: trimmedPath },
       {
         onSuccess: () => {
-          setPath('');
+          setPath("");
           onOpenChange(false);
         },
       },
@@ -47,7 +47,7 @@ export function AddFolderDialog({ open, onOpenChange }: TAddFolderDialogProps) {
 
   function handleOpenChange(nextOpen: boolean) {
     if (!nextOpen) {
-      setPath('');
+      setPath("");
       addSource.reset();
     }
     onOpenChange(nextOpen);
@@ -99,7 +99,7 @@ export function AddFolderDialog({ open, onOpenChange }: TAddFolderDialogProps) {
               className="w-full"
               disabled={isSubmitDisabled}
             >
-              {addSource.isPending ? 'Adding...' : 'Add Folder'}
+              {addSource.isPending ? "Adding..." : "Add Folder"}
             </Button.Root>
           </Modal.Footer>
         </form>

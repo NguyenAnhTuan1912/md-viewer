@@ -1,5 +1,5 @@
-import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
 type TThemeState = {
   isDarkMode: boolean;
@@ -11,7 +11,7 @@ export const useThemeStore = create<TThemeState>()(
       isDarkMode: false,
     }),
     {
-      name: 'md-viewer-theme',
+      name: "md-viewer-theme",
     },
   ),
 );

@@ -1,91 +1,91 @@
 // AlignUI CompactButton v0.0.0
 
-import * as React from 'react';
-import { Slot } from '@radix-ui/react-slot';
+import * as React from "react";
+import { Slot } from "@radix-ui/react-slot";
 
-import { type TPolymorphicComponentProps } from '@/lib/polymorphic';
-import { recursiveCloneChildren } from '@/lib/recursive-clone-children';
-import { tv, type VariantProps } from '@/lib/tv';
+import { type TPolymorphicComponentProps } from "@/lib/polymorphic";
+import { recursiveCloneChildren } from "@/lib/recursive-clone-children";
+import { tv, type VariantProps } from "@/lib/tv";
 
-const COMPACT_BUTTON_ROOT_NAME = 'CompactButtonRoot';
-const COMPACT_BUTTON_ICON_NAME = 'CompactButtonIcon';
+const COMPACT_BUTTON_ROOT_NAME = "CompactButtonRoot";
+const COMPACT_BUTTON_ICON_NAME = "CompactButtonIcon";
 
 export const compactButtonVariants = tv({
   slots: {
     root: [
       // base
-      'relative flex shrink-0 items-center justify-center outline-none',
-      'transition duration-200 ease-out',
+      "relative flex shrink-0 items-center justify-center outline-none",
+      "transition duration-200 ease-out",
       // disabled
-      'disabled:pointer-events-none disabled:border-transparent disabled:bg-transparent disabled:text-text-disabled-300 disabled:shadow-none',
+      "disabled:pointer-events-none disabled:border-transparent disabled:bg-transparent disabled:text-text-disabled-300 disabled:shadow-none",
       // focus
-      'focus:outline-none',
+      "focus:outline-none",
     ],
-    icon: '',
+    icon: "",
   },
   variants: {
     variant: {
       stroke: {
         root: [
           // base
-          'border border-stroke-soft-200 bg-bg-white-0 text-text-sub-600 shadow-regular-xs',
+          "border border-stroke-soft-200 bg-bg-white-0 text-text-sub-600 shadow-regular-xs",
           // hover
-          'hover:border-transparent hover:bg-bg-weak-50 hover:text-text-strong-950 hover:shadow-none',
+          "hover:border-transparent hover:bg-bg-weak-50 hover:text-text-strong-950 hover:shadow-none",
           // focus
-          'focus-visible:border-transparent focus-visible:bg-bg-strong-950 focus-visible:text-text-white-0 focus-visible:shadow-none',
+          "focus-visible:border-transparent focus-visible:bg-bg-strong-950 focus-visible:text-text-white-0 focus-visible:shadow-none",
         ],
       },
       ghost: {
         root: [
           // base
-          'bg-transparent text-text-sub-600',
+          "bg-transparent text-text-sub-600",
           // hover
-          'hover:bg-bg-weak-50 hover:text-text-strong-950',
+          "hover:bg-bg-weak-50 hover:text-text-strong-950",
           // focus
-          'focus-visible:bg-bg-strong-950 focus-visible:text-text-white-0',
+          "focus-visible:bg-bg-strong-950 focus-visible:text-text-white-0",
         ],
       },
       white: {
         root: [
           // base
-          'bg-bg-white-0 text-text-sub-600 shadow-regular-xs',
+          "bg-bg-white-0 text-text-sub-600 shadow-regular-xs",
           // hover
-          'hover:bg-bg-weak-50 hover:text-text-strong-950',
+          "hover:bg-bg-weak-50 hover:text-text-strong-950",
           // focus
-          'focus-visible:bg-bg-strong-950 focus-visible:text-text-white-0',
+          "focus-visible:bg-bg-strong-950 focus-visible:text-text-white-0",
         ],
       },
       modifiable: {},
     },
     size: {
       large: {
-        root: 'size-6',
-        icon: 'size-5',
+        root: "size-6",
+        icon: "size-5",
       },
       medium: {
-        root: 'size-5',
-        icon: 'size-[18px]',
+        root: "size-5",
+        icon: "size-[18px]",
       },
     },
     fullRadius: {
       true: {
-        root: 'rounded-full',
+        root: "rounded-full",
       },
       false: {
-        root: 'rounded-md',
+        root: "rounded-md",
       },
     },
   },
   defaultVariants: {
-    variant: 'stroke',
-    size: 'large',
+    variant: "stroke",
+    size: "large",
     fullRadius: false,
   },
 });
 
 type TCompactButtonSharedProps = Omit<
   VariantProps<typeof compactButtonVariants>,
-  'fullRadius'
+  "fullRadius"
 >;
 
 type TCompactButtonProps = VariantProps<typeof compactButtonVariants> &
@@ -102,7 +102,7 @@ const CompactButtonRoot = React.forwardRef<
     forwardedRef,
   ) => {
     const uniqueId = React.useId();
-    const Component = asChild ? Slot : 'button';
+    const Component = asChild ? Slot : "button";
     const { root } = compactButtonVariants({ variant, size, fullRadius });
 
     const sharedProps: TCompactButtonSharedProps = {
@@ -138,7 +138,7 @@ function CompactButtonIcon<T extends React.ElementType>({
   className,
   ...rest
 }: TPolymorphicComponentProps<T, TCompactButtonSharedProps>) {
-  const Component = as || 'div';
+  const Component = as || "div";
   const { icon } = compactButtonVariants({ variant, size });
 
   return <Component className={icon({ class: className })} {...rest} />;

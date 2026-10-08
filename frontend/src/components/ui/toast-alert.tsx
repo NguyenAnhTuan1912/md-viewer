@@ -1,19 +1,19 @@
-import * as React from 'react';
+import * as React from "react";
 import {
   RiAlertFill,
   RiCheckboxCircleFill,
   RiErrorWarningFill,
   RiInformationFill,
   RiMagicFill,
-} from '@remixicon/react';
+} from "@remixicon/react";
 
-import * as Alert from '@/components/ui/alert';
-import { toast } from '@/components/ui/toast';
+import * as Alert from "@/components/ui/alert";
+import { toast } from "@/components/ui/toast";
 
 type TAlertToastProps = {
   t: string | number;
-  status?: React.ComponentPropsWithoutRef<typeof Alert.Root>['status'];
-  variant?: React.ComponentPropsWithoutRef<typeof Alert.Root>['variant'];
+  status?: React.ComponentPropsWithoutRef<typeof Alert.Root>["status"];
+  variant?: React.ComponentPropsWithoutRef<typeof Alert.Root>["variant"];
   message: string;
   dismissable?: boolean;
   icon?: React.ElementType;
@@ -26,8 +26,8 @@ const AlertToast = React.forwardRef<
   (
     {
       t,
-      status = 'feature',
-      variant = 'stroke',
+      status = "feature",
+      variant = "stroke",
       message,
       dismissable = true,
       icon,
@@ -40,19 +40,19 @@ const AlertToast = React.forwardRef<
       Icon = icon;
     } else {
       switch (status) {
-        case 'success':
+        case "success":
           Icon = RiCheckboxCircleFill;
           break;
-        case 'warning':
+        case "warning":
           Icon = RiAlertFill;
           break;
-        case 'error':
+        case "error":
           Icon = RiErrorWarningFill;
           break;
-        case 'information':
+        case "information":
           Icon = RiInformationFill;
           break;
-        case 'feature':
+        case "feature":
           Icon = RiMagicFill;
           break;
         default:
@@ -80,6 +80,6 @@ const AlertToast = React.forwardRef<
     );
   },
 );
-AlertToast.displayName = 'AlertToast';
+AlertToast.displayName = "AlertToast";
 
 export { AlertToast as Root };

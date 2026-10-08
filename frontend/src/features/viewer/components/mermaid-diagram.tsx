@@ -1,6 +1,6 @@
-import { useEffect, useId, useRef, useState } from 'react';
-import mermaid from 'mermaid';
-import { useThemeStore } from '@/features/theme/store/theme-store';
+import { useEffect, useId, useRef, useState } from "react";
+import mermaid from "mermaid";
+import { useThemeStore } from "@/features/theme/store/theme-store";
 
 type TMermaidDiagramProps = {
   code: string;
@@ -14,7 +14,7 @@ export function MermaidDiagram({ code }: TMermaidDiagramProps) {
   // DOM reference and stable diagram identifier.
   const containerRef = useRef<HTMLDivElement>(null);
   const diagramId = useId();
-  const containerId = diagramId.replace(/:/g, '-');
+  const containerId = diagramId.replace(/:/g, "-");
 
   // Render again when content or theme changes; ignore stale async results.
   useEffect(() => {
@@ -24,8 +24,8 @@ export function MermaidDiagram({ code }: TMermaidDiagramProps) {
       setError(null);
       mermaid.initialize({
         startOnLoad: false,
-        theme: isDarkMode ? 'dark' : 'default',
-        securityLevel: 'strict',
+        theme: isDarkMode ? "dark" : "default",
+        securityLevel: "strict",
       });
 
       try {
@@ -36,7 +36,7 @@ export function MermaidDiagram({ code }: TMermaidDiagramProps) {
       } catch (err) {
         if (!isCancelled) {
           setError(
-            err instanceof Error ? err.message : 'Failed to render diagram',
+            err instanceof Error ? err.message : "Failed to render diagram",
           );
         }
       }

@@ -1,6 +1,6 @@
-import { SourceAccessDeniedError } from '../../domain/errors/file-explorer.errors';
-import * as path from 'path';
-import { SourceRepository } from '../ports/source.repository';
+import { SourceAccessDeniedError } from "../../domain/errors/file-explorer.errors";
+import * as path from "path";
+import { SourceRepository } from "../ports/source.repository";
 
 /**
  * Application service that guards against path traversal by ensuring a given
@@ -16,14 +16,14 @@ export class SourcePathGuard {
       const sourceRoot = path.resolve(source.path);
       const relative = path.relative(sourceRoot, resolvedPath);
       return (
-        relative === '' ||
-        (!relative.startsWith('..') && !path.isAbsolute(relative))
+        relative === "" ||
+        (!relative.startsWith("..") && !path.isAbsolute(relative))
       );
     });
 
     if (!isWithinAnySource) {
       throw new SourceAccessDeniedError(
-        'Requested path is outside all registered sources',
+        "Requested path is outside all registered sources",
       );
     }
   }

@@ -1,16 +1,16 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
-import * as Button from '@/components/ui/button';
-import { AddFolderDialog } from '@/features/sources/components/add-folder-dialog';
-import { useSources } from '@/features/sources/queries/use-sources';
-import { SidebarTreeView } from '@/features/sidebar-tree/components/tree-view';
+import { useCallback, useEffect, useRef, useState } from "react";
+import * as Button from "@/components/ui/button";
+import { AddFolderDialog } from "@/features/sources/components/add-folder-dialog";
+import { useSources } from "@/features/sources/queries/use-sources";
+import { SidebarTreeView } from "@/features/sidebar-tree/components/tree-view";
 import {
   SIDEBAR_MAX_WIDTH,
   SIDEBAR_MIN_WIDTH,
   useSidebarStore,
   sidebarStoreActions,
-} from '@/features/sidebar-tree/store/sidebar-store';
-import { cn } from '@/lib/cn';
-import { RiAddLine } from '@remixicon/react';
+} from "@/features/sidebar-tree/store/sidebar-store";
+import { cn } from "@/lib/cn";
+import { RiAddLine } from "@remixicon/react";
 
 export function Sidebar() {
   // Local and persisted state.
@@ -40,16 +40,16 @@ export function Sidebar() {
       setIsResizing(false);
     }
 
-    document.addEventListener('pointermove', handlePointerMove);
-    document.addEventListener('pointerup', handlePointerUp);
-    document.body.style.cursor = 'col-resize';
-    document.body.style.userSelect = 'none';
+    document.addEventListener("pointermove", handlePointerMove);
+    document.addEventListener("pointerup", handlePointerUp);
+    document.body.style.cursor = "col-resize";
+    document.body.style.userSelect = "none";
 
     return () => {
-      document.removeEventListener('pointermove', handlePointerMove);
-      document.removeEventListener('pointerup', handlePointerUp);
-      document.body.style.cursor = '';
-      document.body.style.userSelect = '';
+      document.removeEventListener("pointermove", handlePointerMove);
+      document.removeEventListener("pointerup", handlePointerUp);
+      document.body.style.cursor = "";
+      document.body.style.userSelect = "";
     };
   }, [isResizing]);
 
@@ -113,13 +113,13 @@ export function Sidebar() {
         aria-label="Resize sidebar"
         onPointerDown={handlePointerDown}
         className={cn(
-          'group absolute -right-1 top-0 z-10 h-full w-2 cursor-col-resize touch-none',
+          "group absolute -right-1 top-0 z-10 h-full w-2 cursor-col-resize touch-none",
         )}
       >
         <div
           className={cn(
-            'mx-auto h-full w-px bg-transparent transition-colors group-hover:bg-primary-alpha-24',
-            isResizing && 'bg-primary-base',
+            "mx-auto h-full w-px bg-transparent transition-colors group-hover:bg-primary-alpha-24",
+            isResizing && "bg-primary-base",
           )}
         />
       </div>

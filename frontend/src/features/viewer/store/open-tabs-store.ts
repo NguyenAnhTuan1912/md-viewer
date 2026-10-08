@@ -1,6 +1,6 @@
-import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
-import type { TFileContentType } from '@/lib/api/types';
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
+import type { TFileContentType } from "@/lib/api/types";
 
 export type TOpenTab = {
   path: string;
@@ -23,7 +23,7 @@ export const useOpenTabsStore = create<TOpenTabsState>()(
       focusHistory: [],
     }),
     {
-      name: 'md-viewer-open-tabs',
+      name: "md-viewer-open-tabs",
     },
   ),
 );
@@ -53,7 +53,10 @@ export const openTabsStoreActions = {
     const nextFocusHistory = activeTabPath
       ? [...focusHistory, activeTabPath]
       : focusHistory;
-    useOpenTabsStore.setState({ activeTabPath: path, focusHistory: nextFocusHistory });
+    useOpenTabsStore.setState({
+      activeTabPath: path,
+      focusHistory: nextFocusHistory,
+    });
   },
 
   closeTab: (path: string) => {
@@ -63,7 +66,10 @@ export const openTabsStoreActions = {
 
     if (activeTabPath !== path) {
       // Closing a non-active tab: just remove it, no focus change.
-      useOpenTabsStore.setState({ tabs: remainingTabs, focusHistory: cleanedHistory });
+      useOpenTabsStore.setState({
+        tabs: remainingTabs,
+        focusHistory: cleanedHistory,
+      });
       return;
     }
 

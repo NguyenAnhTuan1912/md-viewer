@@ -1,128 +1,128 @@
 // AlignUI Input v0.0.0
 
-import * as React from 'react';
-import { Slot } from '@radix-ui/react-slot';
+import * as React from "react";
+import { Slot } from "@radix-ui/react-slot";
 
-import type { TPolymorphicComponentProps } from '@/lib/polymorphic';
-import { recursiveCloneChildren } from '@/lib/recursive-clone-children';
-import { tv, type VariantProps } from '@/lib/tv';
+import type { TPolymorphicComponentProps } from "@/lib/polymorphic";
+import { recursiveCloneChildren } from "@/lib/recursive-clone-children";
+import { tv, type VariantProps } from "@/lib/tv";
 
-const INPUT_ROOT_NAME = 'InputRoot';
-const INPUT_WRAPPER_NAME = 'InputWrapper';
-const INPUT_EL_NAME = 'InputEl';
-const INPUT_ICON_NAME = 'InputIcon';
-const INPUT_AFFIX_NAME = 'InputAffixButton';
-const INPUT_INLINE_AFFIX_NAME = 'InputInlineAffixButton';
+const INPUT_ROOT_NAME = "InputRoot";
+const INPUT_WRAPPER_NAME = "InputWrapper";
+const INPUT_EL_NAME = "InputEl";
+const INPUT_ICON_NAME = "InputIcon";
+const INPUT_AFFIX_NAME = "InputAffixButton";
+const INPUT_INLINE_AFFIX_NAME = "InputInlineAffixButton";
 
 export const inputVariants = tv({
   slots: {
     root: [
       // base
-      'group relative flex w-full overflow-hidden bg-bg-white-0 text-text-strong-950 shadow-regular-xs',
-      'transition duration-200 ease-out',
-      'divide-x divide-stroke-soft-200',
+      "group relative flex w-full overflow-hidden bg-bg-white-0 text-text-strong-950 shadow-regular-xs",
+      "transition duration-200 ease-out",
+      "divide-x divide-stroke-soft-200",
       // before
-      'before:absolute before:inset-0 before:ring-1 before:ring-inset before:ring-stroke-soft-200',
-      'before:pointer-events-none before:rounded-[inherit]',
-      'before:transition before:duration-200 before:ease-out',
+      "before:absolute before:inset-0 before:ring-1 before:ring-inset before:ring-stroke-soft-200",
+      "before:pointer-events-none before:rounded-[inherit]",
+      "before:transition before:duration-200 before:ease-out",
       // hover
-      'hover:shadow-none',
+      "hover:shadow-none",
       // focus
-      'has-[input:focus]:shadow-button-important-focus has-[input:focus]:before:ring-stroke-strong-950',
+      "has-[input:focus]:shadow-button-important-focus has-[input:focus]:before:ring-stroke-strong-950",
       // disabled
-      'has-[input:disabled]:shadow-none has-[input:disabled]:before:ring-transparent',
+      "has-[input:disabled]:shadow-none has-[input:disabled]:before:ring-transparent",
     ],
     wrapper: [
       // base
-      'group/input-wrapper flex w-full cursor-text items-center bg-bg-white-0',
-      'transition duration-200 ease-out',
+      "group/input-wrapper flex w-full cursor-text items-center bg-bg-white-0",
+      "transition duration-200 ease-out",
       // hover
-      'hover:[&:not(&:has(input:focus))]:bg-bg-weak-50',
+      "hover:[&:not(&:has(input:focus))]:bg-bg-weak-50",
       // disabled
-      'has-[input:disabled]:pointer-events-none has-[input:disabled]:bg-bg-weak-50',
+      "has-[input:disabled]:pointer-events-none has-[input:disabled]:bg-bg-weak-50",
     ],
     input: [
       // base
-      'w-full bg-transparent bg-none text-paragraph-sm text-text-strong-950 outline-none',
-      'transition duration-200 ease-out',
+      "w-full bg-transparent bg-none text-paragraph-sm text-text-strong-950 outline-none",
+      "transition duration-200 ease-out",
       // placeholder
-      'placeholder:select-none placeholder:text-text-soft-400 placeholder:transition placeholder:duration-200 placeholder:ease-out',
+      "placeholder:select-none placeholder:text-text-soft-400 placeholder:transition placeholder:duration-200 placeholder:ease-out",
       // hover placeholder
-      'group-hover/input-wrapper:placeholder:text-text-sub-600',
+      "group-hover/input-wrapper:placeholder:text-text-sub-600",
       // focus
-      'focus:outline-none',
+      "focus:outline-none",
       // focus placeholder
-      'group-has-[input:focus]:placeholder:text-text-sub-600',
+      "group-has-[input:focus]:placeholder:text-text-sub-600",
       // disabled
-      'disabled:text-text-disabled-300 disabled:placeholder:text-text-disabled-300',
+      "disabled:text-text-disabled-300 disabled:placeholder:text-text-disabled-300",
     ],
     icon: [
       // base
-      'flex size-5 shrink-0 select-none items-center justify-center',
-      'transition duration-200 ease-out',
+      "flex size-5 shrink-0 select-none items-center justify-center",
+      "transition duration-200 ease-out",
       // placeholder state
-      'group-has-[:placeholder-shown]:text-text-soft-400',
+      "group-has-[:placeholder-shown]:text-text-soft-400",
       // filled state
-      'text-text-sub-600',
+      "text-text-sub-600",
       // hover
-      'group-has-[:placeholder-shown]:group-hover/input-wrapper:text-text-sub-600',
+      "group-has-[:placeholder-shown]:group-hover/input-wrapper:text-text-sub-600",
       // focus
-      'group-has-[:placeholder-shown]:group-has-[input:focus]/input-wrapper:text-text-sub-600',
+      "group-has-[:placeholder-shown]:group-has-[input:focus]/input-wrapper:text-text-sub-600",
       // disabled
-      'group-has-[input:disabled]/input-wrapper:text-text-disabled-300',
+      "group-has-[input:disabled]/input-wrapper:text-text-disabled-300",
     ],
     affix: [
       // base
-      'shrink-0 bg-bg-white-0 text-paragraph-sm text-text-sub-600',
-      'flex items-center justify-center truncate',
-      'transition duration-200 ease-out',
+      "shrink-0 bg-bg-white-0 text-paragraph-sm text-text-sub-600",
+      "flex items-center justify-center truncate",
+      "transition duration-200 ease-out",
       // placeholder state
-      'group-has-[:placeholder-shown]:text-text-soft-400',
+      "group-has-[:placeholder-shown]:text-text-soft-400",
       // focus state
-      'group-has-[:placeholder-shown]:group-has-[input:focus]:text-text-sub-600',
+      "group-has-[:placeholder-shown]:group-has-[input:focus]:text-text-sub-600",
     ],
     inlineAffix: [
       // base
-      'text-paragraph-sm text-text-sub-600',
+      "text-paragraph-sm text-text-sub-600",
       // placeholder state
-      'group-has-[:placeholder-shown]:text-text-soft-400',
+      "group-has-[:placeholder-shown]:text-text-soft-400",
       // focus state
-      'group-has-[:placeholder-shown]:group-has-[input:focus]:text-text-sub-600',
+      "group-has-[:placeholder-shown]:group-has-[input:focus]:text-text-sub-600",
     ],
   },
   variants: {
     size: {
       medium: {
-        root: 'rounded-10',
-        wrapper: 'gap-2 px-3',
-        input: 'h-10',
+        root: "rounded-10",
+        wrapper: "gap-2 px-3",
+        input: "h-10",
       },
       small: {
-        root: 'rounded-lg',
-        wrapper: 'gap-2 px-2.5',
-        input: 'h-9',
+        root: "rounded-lg",
+        wrapper: "gap-2 px-2.5",
+        input: "h-9",
       },
       xsmall: {
-        root: 'rounded-lg',
-        wrapper: 'gap-1.5 px-2',
-        input: 'h-8',
+        root: "rounded-lg",
+        wrapper: "gap-1.5 px-2",
+        input: "h-8",
       },
     },
     hasError: {
       true: {
         root: [
           // base
-          'before:ring-error-base',
+          "before:ring-error-base",
           // base
-          'hover:before:ring-error-base hover:[&:not(&:has(input:focus)):has(>:only-child)]:before:ring-error-base',
+          "hover:before:ring-error-base hover:[&:not(&:has(input:focus)):has(>:only-child)]:before:ring-error-base",
           // focus
-          'has-[input:focus]:shadow-button-error-focus has-[input:focus]:before:ring-error-base',
+          "has-[input:focus]:shadow-button-error-focus has-[input:focus]:before:ring-error-base",
         ],
       },
       false: {
         root: [
           // hover
-          'hover:[&:not(:has(input:focus)):has(>:only-child)]:before:ring-transparent',
+          "hover:[&:not(:has(input:focus)):has(>:only-child)]:before:ring-transparent",
         ],
       },
     },
@@ -130,21 +130,21 @@ export const inputVariants = tv({
   compoundVariants: [
     //#region affix
     {
-      size: 'medium',
+      size: "medium",
       class: {
-        affix: 'px-3',
+        affix: "px-3",
       },
     },
     {
-      size: ['small', 'xsmall'],
+      size: ["small", "xsmall"],
       class: {
-        affix: 'px-2.5',
+        affix: "px-2.5",
       },
     },
     //#endregion
   ],
   defaultVariants: {
-    size: 'medium',
+    size: "medium",
   },
 });
 
@@ -162,7 +162,7 @@ function InputRoot({
     asChild?: boolean;
   }) {
   const uniqueId = React.useId();
-  const Component = asChild ? Slot : 'div';
+  const Component = asChild ? Slot : "div";
 
   const { root } = inputVariants({
     size,
@@ -207,7 +207,7 @@ function InputWrapper({
   TInputSharedProps & {
     asChild?: boolean;
   }) {
-  const Component = asChild ? Slot : 'label';
+  const Component = asChild ? Slot : "label";
 
   const { wrapper } = inputVariants({
     size,
@@ -230,10 +230,10 @@ const Input = React.forwardRef<
     }
 >(
   (
-    { className, type = 'text', size, hasError, asChild, ...rest },
+    { className, type = "text", size, hasError, asChild, ...rest },
     forwardedRef,
   ) => {
-    const Component = asChild ? Slot : 'input';
+    const Component = asChild ? Slot : "input";
 
     const { input } = inputVariants({
       size,
@@ -252,14 +252,14 @@ const Input = React.forwardRef<
 );
 Input.displayName = INPUT_EL_NAME;
 
-function InputIcon<T extends React.ElementType = 'div'>({
+function InputIcon<T extends React.ElementType = "div">({
   size,
   hasError,
   as,
   className,
   ...rest
 }: TPolymorphicComponentProps<T, TInputSharedProps>) {
-  const Component = as || 'div';
+  const Component = as || "div";
   const { icon } = inputVariants({ size, hasError });
 
   return <Component className={icon({ class: className })} {...rest} />;

@@ -1,4 +1,4 @@
-import { FileNode } from '../../domain/entities/file-node.entity';
+import { FileNode } from "../../domain/entities/file-node.entity";
 
 /**
  * Port for interacting with the physical filesystem: scanning directory

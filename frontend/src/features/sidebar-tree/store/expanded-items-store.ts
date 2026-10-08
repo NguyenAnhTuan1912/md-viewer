@@ -1,5 +1,5 @@
-import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
 type TExpandedItemsState = {
   expandedItems: string[];
@@ -11,15 +11,17 @@ export const useExpandedItemsStore = create<TExpandedItemsState>()(
       expandedItems: [],
     }),
     {
-      name: 'md-viewer-expanded-items',
+      name: "md-viewer-expanded-items",
     },
   ),
 );
 
 export const expandedItemsStoreActions = {
-  setExpandedItems: (itemsOrUpdater: string[] | ((prev: string[]) => string[])) => {
+  setExpandedItems: (
+    itemsOrUpdater: string[] | ((prev: string[]) => string[]),
+  ) => {
     const next =
-      typeof itemsOrUpdater === 'function'
+      typeof itemsOrUpdater === "function"
         ? itemsOrUpdater(useExpandedItemsStore.getState().expandedItems)
         : itemsOrUpdater;
     useExpandedItemsStore.setState({ expandedItems: next });

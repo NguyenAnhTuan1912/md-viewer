@@ -1,9 +1,9 @@
-import { RiCloseLine, RiFileTextLine, RiHtml5Line } from '@remixicon/react';
+import { RiCloseLine, RiFileTextLine, RiHtml5Line } from "@remixicon/react";
 import {
   useOpenTabsStore,
   openTabsStoreActions,
-} from '@/features/viewer/store/open-tabs-store';
-import { cn } from '@/lib/cn';
+} from "@/features/viewer/store/open-tabs-store";
+import { cn } from "@/lib/cn";
 
 export function TabBar() {
   const tabs = useOpenTabsStore((state) => state.tabs);
@@ -17,7 +17,7 @@ export function TabBar() {
     <div className="flex h-10 shrink-0 items-stretch overflow-x-auto border-b border-stroke-soft-200 bg-bg-weak-50">
       {tabs.map((tab) => {
         const isActive = tab.path === activeTabPath;
-        const Icon = tab.type === 'markdown' ? RiFileTextLine : RiHtml5Line;
+        const Icon = tab.type === "markdown" ? RiFileTextLine : RiHtml5Line;
 
         return (
           <div
@@ -26,10 +26,10 @@ export function TabBar() {
             aria-selected={isActive}
             onClick={() => openTabsStoreActions.focusTab(tab.path)}
             className={cn(
-              'group/tab relative flex min-w-[120px] max-w-[200px] shrink-0 cursor-pointer items-center gap-2 border-r border-stroke-soft-200 px-3 text-paragraph-sm transition-colors',
+              "group/tab relative flex min-w-[120px] max-w-[200px] shrink-0 cursor-pointer items-center gap-2 border-r border-stroke-soft-200 px-3 text-paragraph-sm transition-colors",
               isActive
-                ? 'bg-bg-white-0 text-text-strong-950'
-                : 'text-text-sub-600 hover:bg-bg-soft-200/50',
+                ? "bg-bg-white-0 text-text-strong-950"
+                : "text-text-sub-600 hover:bg-bg-soft-200/50",
             )}
           >
             {isActive && (
@@ -45,8 +45,8 @@ export function TabBar() {
                 openTabsStoreActions.closeTab(tab.path);
               }}
               className={cn(
-                'flex size-5 shrink-0 items-center justify-center rounded-md text-text-soft-400 opacity-0 transition-opacity hover:bg-bg-soft-200 hover:text-text-strong-950 group-hover/tab:opacity-100',
-                isActive && 'opacity-100',
+                "flex size-5 shrink-0 items-center justify-center rounded-md text-text-soft-400 opacity-0 transition-opacity hover:bg-bg-soft-200 hover:text-text-strong-950 group-hover/tab:opacity-100",
+                isActive && "opacity-100",
               )}
             >
               <RiCloseLine className="size-3.5" />

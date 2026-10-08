@@ -1,9 +1,9 @@
-import * as fs from 'fs/promises';
-import * as path from 'path';
-import { FileNode } from '../../domain/entities/file-node.entity';
-import { FileSystemPort } from '../../application/ports/file-system.port';
+import * as fs from "fs/promises";
+import * as path from "path";
+import { FileNode } from "../../domain/entities/file-node.entity";
+import { FileSystemPort } from "../../application/ports/file-system.port";
 
-const SUPPORTED_EXTENSIONS = new Set(['.md', '.html']);
+const SUPPORTED_EXTENSIONS = new Set([".md", ".html"]);
 
 export class NodeFileSystemService implements FileSystemPort {
   async isDirectory(filePath: string): Promise<boolean> {
@@ -15,7 +15,7 @@ export class NodeFileSystemService implements FileSystemPort {
   }
 
   async readFile(filePath: string): Promise<string> {
-    return fs.readFile(filePath, 'utf-8');
+    return fs.readFile(filePath, "utf-8");
   }
 
   async readFileBuffer(filePath: string): Promise<Buffer> {
@@ -23,7 +23,7 @@ export class NodeFileSystemService implements FileSystemPort {
   }
 
   private async scanRecursive(dirPath: string): Promise<FileNode[]> {
-    let entries: import('fs').Dirent[];
+    let entries: import("fs").Dirent[];
     try {
       entries = await fs.readdir(dirPath, { withFileTypes: true });
     } catch {
@@ -35,7 +35,7 @@ export class NodeFileSystemService implements FileSystemPort {
     const nodes: FileNode[] = [];
 
     for (const entry of entries) {
-      if (entry.name.startsWith('.')) {
+      if (entry.name.startsWith(".")) {
         continue;
       }
 
@@ -58,8 +58,8 @@ export class NodeFileSystemService implements FileSystemPort {
   }
 
   private sortNodes(nodes: FileNode[]): FileNode[] {
-    const folders = nodes.filter((n) => n.type === 'folder');
-    const files = nodes.filter((n) => n.type === 'file');
+    const folders = nodes.filter((n) => n.type === "folder");
+    const files = nodes.filter((n) => n.type === "file");
     return [...folders, ...files];
   }
 }

@@ -1,6 +1,6 @@
-import * as Switch from '@/components/ui/switch';
-import * as Tooltip from '@/components/ui/tooltip';
-import { RiMoonLine, RiSunLine } from '@remixicon/react';
+import * as Switch from "@/components/ui/switch";
+import * as Tooltip from "@/components/ui/tooltip";
+import { RiMoonLine, RiSunLine } from "@remixicon/react";
 
 type THeaderProps = {
   isDarkMode: boolean;
@@ -28,7 +28,7 @@ export function Header({ isDarkMode, onToggleDarkMode }: THeaderProps) {
             </div>
           </Tooltip.Trigger>
           <Tooltip.Content side="bottom">
-            {isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
+            {isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
           </Tooltip.Content>
         </Tooltip.Root>
       </Tooltip.Provider>

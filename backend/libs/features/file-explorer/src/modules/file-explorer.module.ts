@@ -1,19 +1,19 @@
-import { FILE_EXPLORER_TOKENS } from '../tokens/file-explorer.tokens';
-import { SourceRepository } from '../application/ports/source.repository';
-import { FileSystemPort } from '../application/ports/file-system.port';
-import { DynamicModule, Module } from '@nestjs/common';
-import { JsonSourceRepository } from '../infrastructure/repositories/json-source.repository';
-import { NodeFileSystemService } from '../infrastructure/services/node-file-system.service';
-import { SourcePathGuard } from '../application/services/source-path-guard.service';
-import { AddSourceUseCase } from '../application/use-cases/add-source.use-case';
-import { ListSourcesUseCase } from '../application/use-cases/list-sources.use-case';
-import { GetSourceTreeUseCase } from '../application/use-cases/get-source-tree.use-case';
-import { GetFileContentUseCase } from '../application/use-cases/get-file-content.use-case';
-import { GetFileAssetUseCase } from '../application/use-cases/get-file-asset.use-case';
-import { SyncNodeUseCase } from '../application/use-cases/sync-node.use-case';
-import { SourcesController } from '../presentation/http/controllers/sources.controller';
-import { FilesController } from '../presentation/http/controllers/files.controller';
-import { NodesController } from '../presentation/http/controllers/nodes.controller';
+import { FILE_EXPLORER_TOKENS } from "../tokens/file-explorer.tokens";
+import { SourceRepository } from "../application/ports/source.repository";
+import { FileSystemPort } from "../application/ports/file-system.port";
+import { DynamicModule, Module } from "@nestjs/common";
+import { JsonSourceRepository } from "../infrastructure/repositories/json-source.repository";
+import { NodeFileSystemService } from "../infrastructure/services/node-file-system.service";
+import { SourcePathGuard } from "../application/services/source-path-guard.service";
+import { AddSourceUseCase } from "../application/use-cases/add-source.use-case";
+import { ListSourcesUseCase } from "../application/use-cases/list-sources.use-case";
+import { GetSourceTreeUseCase } from "../application/use-cases/get-source-tree.use-case";
+import { GetFileContentUseCase } from "../application/use-cases/get-file-content.use-case";
+import { GetFileAssetUseCase } from "../application/use-cases/get-file-asset.use-case";
+import { SyncNodeUseCase } from "../application/use-cases/sync-node.use-case";
+import { SourcesController } from "../presentation/http/controllers/sources.controller";
+import { FilesController } from "../presentation/http/controllers/files.controller";
+import { NodesController } from "../presentation/http/controllers/nodes.controller";
 
 export interface FileExplorerModuleOptions {
   sourceConfigPath?: string;

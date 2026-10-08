@@ -1,16 +1,16 @@
-import { useEffect } from 'react';
-import { useThemeStore } from '@/features/theme/store/theme-store';
+import { useEffect } from "react";
+import { useThemeStore } from "@/features/theme/store/theme-store";
 
 const LIGHT_THEME_HREF = new URL(
-  'highlight.js/styles/github.css',
+  "highlight.js/styles/github.css",
   import.meta.url,
 ).href;
 const DARK_THEME_HREF = new URL(
-  'highlight.js/styles/github-dark.css',
+  "highlight.js/styles/github-dark.css",
   import.meta.url,
 ).href;
 
-const STYLE_ELEMENT_ID = 'hljs-theme-stylesheet';
+const STYLE_ELEMENT_ID = "hljs-theme-stylesheet";
 
 /**
  * Dynamically swaps the highlight.js theme stylesheet (GitHub light/dark)
@@ -25,9 +25,9 @@ export function useHighlightTheme() {
     ) as HTMLLinkElement | null;
 
     if (!link) {
-      link = document.createElement('link');
+      link = document.createElement("link");
       link.id = STYLE_ELEMENT_ID;
-      link.rel = 'stylesheet';
+      link.rel = "stylesheet";
       document.head.appendChild(link);
     }
 

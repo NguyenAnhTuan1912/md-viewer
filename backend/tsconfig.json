@@ -19,8 +19,5 @@
     "noFallthroughCasesInSwitch": false,
     "rootDir": "."
   },
-  "include": [
-    "apps/**/*.ts",
-    "libs/**/*.ts"
-  ]
+  "include": ["apps/**/*.ts", "libs/**/*.ts"]
 }

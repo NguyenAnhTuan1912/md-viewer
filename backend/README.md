@@ -63,11 +63,11 @@ and feature-flag machinery are not required for the viewer.
 Set variables in the process environment or PM2 configuration; `.env.example`
 documents the options but `.env` files are not automatically loaded.
 
-| Variable | Default | Purpose |
-| --- | --- | --- |
-| `PORT` | `19121` | Integer TCP port from 1 to 65535 |
-| `SOURCE_CONFIG_PATH` | `data/sources.config.json` | Existing source registry |
-| `FRONTEND_DIST_PATH` | `../frontend/dist` | Built frontend directory |
+| Variable             | Default                    | Purpose                          |
+| -------------------- | -------------------------- | -------------------------------- |
+| `PORT`               | `19121`                    | Integer TCP port from 1 to 65535 |
+| `SOURCE_CONFIG_PATH` | `data/sources.config.json` | Existing source registry         |
+| `FRONTEND_DIST_PATH` | `../frontend/dist`         | Built frontend directory         |
 
 Relative paths resolve from the backend working directory. Existing source JSON
 and UUIDs need no migration. Tests use temporary storage and do not modify the

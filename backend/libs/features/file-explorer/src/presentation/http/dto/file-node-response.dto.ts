@@ -1,9 +1,9 @@
-import { FileNode } from '../../../domain/entities/file-node.entity';
+import { FileNode } from "../../../domain/entities/file-node.entity";
 
 export class FileNodeResponseDto {
   name: string;
   path: string;
-  type: 'file' | 'folder';
+  type: "file" | "folder";
   extension?: string;
   children?: FileNodeResponseDto[];
 

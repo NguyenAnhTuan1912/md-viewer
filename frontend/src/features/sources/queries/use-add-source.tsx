@@ -1,9 +1,9 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { ApiError } from '@/lib/api/client';
-import { addSource } from '@/features/sources/api/add-source';
-import { sourcesQueryKey } from '@/features/sources/queries/use-sources';
-import { toast } from '@/components/ui/toast';
-import * as ToastAlert from '@/components/ui/toast-alert';
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { ApiError } from "@/lib/api/client";
+import { addSource } from "@/features/sources/api/add-source";
+import { sourcesQueryKey } from "@/features/sources/queries/use-sources";
+import { toast } from "@/components/ui/toast";
+import * as ToastAlert from "@/components/ui/toast-alert";
 
 export function useAddSource() {
   const queryClient = useQueryClient();
@@ -22,7 +22,7 @@ export function useAddSource() {
     },
     onError: (error) => {
       const message =
-        error instanceof ApiError ? error.message : 'Failed to add folder.';
+        error instanceof ApiError ? error.message : "Failed to add folder.";
       toast.custom((t) => (
         <ToastAlert.Root t={t} status="error" message={message} />
       ));

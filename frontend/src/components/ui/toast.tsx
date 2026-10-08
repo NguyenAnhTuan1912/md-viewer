@@ -1,11 +1,11 @@
 // AlignUI Toast v0.0.0
 
-import * as React from 'react';
-import { toast as sonnerToast, Toaster, type ToasterProps } from 'sonner';
+import * as React from "react";
+import { toast as sonnerToast, Toaster, type ToasterProps } from "sonner";
 
 const defaultOptions: ToasterProps = {
-  className: 'group/toast',
-  position: 'bottom-center',
+  className: "group/toast",
+  position: "bottom-center",
 };
 
 const customToast = (

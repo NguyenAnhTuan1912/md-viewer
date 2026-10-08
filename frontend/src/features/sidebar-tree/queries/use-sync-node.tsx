@@ -1,10 +1,10 @@
-import { syncNode } from '@/features/sidebar-tree/api/sync-node';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { ApiError } from '@/lib/api/client';
-import type { TFileNode, TSourceTree } from '@/lib/api/types';
-import { sourceTreeQueryKey } from '@/features/sidebar-tree/queries/use-source-tree';
-import { toast } from '@/components/ui/toast';
-import * as ToastAlert from '@/components/ui/toast-alert';
+import { syncNode } from "@/features/sidebar-tree/api/sync-node";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { ApiError } from "@/lib/api/client";
+import type { TFileNode, TSourceTree } from "@/lib/api/types";
+import { sourceTreeQueryKey } from "@/features/sidebar-tree/queries/use-source-tree";
+import { toast } from "@/components/ui/toast";
+import * as ToastAlert from "@/components/ui/toast-alert";
 
 export function useSyncNode() {
   const queryClient = useQueryClient();
@@ -25,7 +25,7 @@ export function useSyncNode() {
         },
       );
 
-      const folderName = path.split('/').filter(Boolean).pop() ?? path;
+      const folderName = path.split("/").filter(Boolean).pop() ?? path;
       toast.custom((t) => (
         <ToastAlert.Root
           t={t}
@@ -36,7 +36,7 @@ export function useSyncNode() {
     },
     onError: (error) => {
       const message =
-        error instanceof ApiError ? error.message : 'Failed to sync folder.';
+        error instanceof ApiError ? error.message : "Failed to sync folder.";
       toast.custom((t) => (
         <ToastAlert.Root t={t} status="error" message={message} />
       ));
