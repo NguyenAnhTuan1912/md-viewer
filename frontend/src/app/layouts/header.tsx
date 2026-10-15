@@ -1,6 +1,10 @@
+import { RiMenuLine, RiMoonLine } from "@remixicon/react";
+
+// Import components
+import * as CompactButton from "@/components/ui/compact-button";
+import * as Dropdown from "@/components/ui/dropdown";
 import * as Switch from "@/components/ui/switch";
 import * as Tooltip from "@/components/ui/tooltip";
-import { RiMoonLine, RiSunLine } from "@remixicon/react";
 
 type THeaderProps = {
   isDarkMode: boolean;
@@ -14,24 +18,34 @@ export function Header({ isDarkMode, onToggleDarkMode }: THeaderProps) {
         Markdown/HTML Viewer
       </span>
 
-      <Tooltip.Provider>
-        <Tooltip.Root>
-          <Tooltip.Trigger asChild>
-            <div className="flex items-center gap-2">
-              <RiSunLine className="size-4 text-text-soft-400" />
-              <Switch.Root
-                checked={isDarkMode}
-                onCheckedChange={onToggleDarkMode}
-                aria-label="Toggle dark mode"
-              />
-              <RiMoonLine className="size-4 text-text-soft-400" />
-            </div>
-          </Tooltip.Trigger>
-          <Tooltip.Content side="bottom">
-            {isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
-          </Tooltip.Content>
-        </Tooltip.Root>
-      </Tooltip.Provider>
+      <Dropdown.Root>
+        <Dropdown.Trigger asChild>
+          <CompactButton.Root variant="modifiable">
+            <CompactButton.Icon as={RiMenuLine} />
+          </CompactButton.Root>
+        </Dropdown.Trigger>
+
+        <Dropdown.Content>
+          <Dropdown.Item
+            onSelect={(e) => {
+              e.preventDefault();
+              onToggleDarkMode(!isDarkMode);
+            }}
+          >
+            <Dropdown.ItemIcon as={RiMoonLine} />
+            Darkmode
+            <span className="w-full"></span>
+            <Tooltip.Root>
+              <Tooltip.Trigger asChild>
+                <Switch.Root checked={isDarkMode} />
+              </Tooltip.Trigger>
+              <Tooltip.Content side="bottom">
+                {isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
+              </Tooltip.Content>
+            </Tooltip.Root>
+          </Dropdown.Item>
+        </Dropdown.Content>
+      </Dropdown.Root>
     </header>
   );
 }

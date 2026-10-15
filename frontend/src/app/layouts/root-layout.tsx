@@ -19,7 +19,7 @@ export function RootLayout({ children }: PropsWithChildren) {
           onToggleDarkMode={themeStoreActions.setDarkMode}
         />
         <TabBar />
-        <main className="flex-1 overflow-y-auto p-6">{children}</main>
+        <main className="relative flex-1 overflow-y-auto py-6">{children}</main>
       </div>
     </div>
   );

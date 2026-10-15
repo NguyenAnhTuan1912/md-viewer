@@ -1,9 +1,16 @@
 import { useMemo } from "react";
-import { useOpenTabsStore } from "@/features/viewer/store/open-tabs-store";
+
+// Import components
+import { Viewer } from "@/features/viewer/components/viewer";
+import { FloatMenu } from "@/features/viewer/components/float-menu";
+import { FocusedViewer } from "@/features/viewer/components/focused-viewer";
+
+// Import queries
 import { useSources } from "@/features/sources/queries/use-sources";
 import { useFileContent } from "@/features/viewer/queries/use-file-content";
-import { MarkdownViewer } from "@/features/viewer/components/markdown-viewer";
-import { HtmlViewer } from "@/features/viewer/components/html-viewer";
+
+// Import stores
+import { useOpenTabsStore } from "@/features/viewer/store/open-tabs-store";
 
 export function ViewerPage() {
   // Store state.
@@ -41,6 +48,16 @@ export function ViewerPage() {
 
   return (
     <>
+      {activeTabPath && (
+        <FocusedViewer>
+          <Viewer
+            fileContent={fileContent}
+            activeTabPath={activeTabPath}
+            activeSourceRoot={activeSourceRoot}
+          />
+        </FocusedViewer>
+      )}
+
       {!activeTabPath && (
         <div className="flex h-full items-center justify-center text-paragraph-sm text-text-soft-400">
           Select a file from the sidebar to preview it here.
@@ -59,20 +76,22 @@ export function ViewerPage() {
         </div>
       )}
 
-      {activeTabPath && fileContent?.type === "markdown" && (
-        <MarkdownViewer
-          content={fileContent.content}
-          filePath={activeTabPath}
-          sourceRoot={activeSourceRoot}
-        />
+      {activeTabPath && (
+        <div className="sticky top-[96%] z-10">
+          <div className="ms-6">
+            <FloatMenu />
+          </div>
+        </div>
       )}
 
-      {activeTabPath && fileContent?.type === "html" && (
-        <HtmlViewer
-          content={fileContent.content}
-          filePath={activeTabPath}
-          sourceRoot={activeSourceRoot}
-        />
+      {activeTabPath && (
+        <div className="max-w-3xl mx-auto">
+          <Viewer
+            fileContent={fileContent}
+            activeTabPath={activeTabPath}
+            activeSourceRoot={activeSourceRoot}
+          />
+        </div>
       )}
     </>
   );

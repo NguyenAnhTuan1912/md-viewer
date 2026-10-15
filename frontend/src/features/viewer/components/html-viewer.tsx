@@ -1,11 +1,12 @@
 import { useMemo } from "react";
+
+// Import utils
 import { rewriteHtmlAssetUrls } from "@/features/viewer/lib/rewrite-html-asset-urls";
 
-type THtmlViewerProps = {
-  content: string;
-  filePath: string;
-  sourceRoot?: string;
-};
+// Import types
+import type { TBaseViewerProps } from "./viewer";
+
+type THtmlViewerProps = TBaseViewerProps;
 
 /**
  * Renders raw HTML content inside a sandboxed iframe.

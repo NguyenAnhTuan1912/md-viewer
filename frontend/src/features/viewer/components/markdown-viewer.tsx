@@ -2,10 +2,21 @@ import * as React from "react";
 import ReactMarkdown, { type Components } from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeHighlight from "rehype-highlight";
+
+// Import components
+import { MermaidDiagram } from "@/features/viewer/components/mermaid-diagram";
+
+// Import hooks
+import { useHighlightTheme } from "@/features/viewer/hooks/use-highlight-theme";
+
+// Import utils
 import { cn } from "@/lib/cn";
 import { resolveAssetUrl } from "@/features/viewer/lib/resolve-asset-url";
-import { MermaidDiagram } from "@/features/viewer/components/mermaid-diagram";
-import { useHighlightTheme } from "@/features/viewer/hooks/use-highlight-theme";
+
+// Import types
+import type { TBaseViewerProps } from "./viewer";
+
+type TMarkdownViewerProps = TBaseViewerProps;
 
 function extractLanguage(className?: string): string | null {
   const match = /language-(\w+)/.exec(className ?? "");
@@ -280,12 +291,6 @@ function createComponents(
   };
 }
 
-type TMarkdownViewerProps = {
-  content: string;
-  filePath: string;
-  sourceRoot?: string;
-};
-
 export function MarkdownViewer({
   content,
   filePath,
@@ -299,7 +304,7 @@ export function MarkdownViewer({
   );
 
   return (
-    <div className="mx-auto max-w-3xl">
+    <div className="mx-auto">
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         rehypePlugins={[rehypeHighlight]}
